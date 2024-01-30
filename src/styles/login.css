@@ -1,0 +1,10 @@
+.login-page{
+    background-color: rgb(186, 148, 221);
+}
+.card{
+    border-radius: 1.5rem;
+
+}
+.fw-normal.mb-3.pb-3{
+    letter-spacing: 1px;
+}

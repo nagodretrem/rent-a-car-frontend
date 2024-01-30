@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ReactElement } from 'react';
+import Homepage from './pages/Homepage/Homepage';
+import { Route,Routes } from 'react-router-dom';
+import Products from './pages/Products/Products';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
+import Navbar from './components/Navbar/Navbar';
+import AddProduct from './pages/AddProduct/AddProduct';
+import NewProductCard from './components/ProductCard/NewProductCard';
+import NewProducts from './pages/Products/NewProducts';
+import Login from './pages/Login/Login';
+import Footer from './components/Footer/Footer';
+import CartDetail from './pages/CartDetail/CartDetail';
+import SignUp from './pages/SignUp/SignUp';
 
-function App() {
+
+function App() :ReactElement {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar/>
+      <div>
+      <Routes>
+        <Route path="/" element={<Homepage/>}></Route>
+        <Route path="/products" element={<Products/>}></Route>
+        <Route path="/product-detail/:id" element={<ProductDetail/>}></Route>
+        <Route path="/add-product" element={<AddProduct/>}></Route>
+        <Route path="/new-products" element={<NewProducts/>}></Route>
+        <Route path="/login" element={<Login/>}></Route>
+        <Route path="/cart" element={<CartDetail/>}></Route>
+        <Route path="/signup" element={<SignUp/>}></Route>
+
+        
+
+
+
+
+        
+
+
+      </Routes>
+      </div>
+      <Footer/>
+    </>
   );
 }
 

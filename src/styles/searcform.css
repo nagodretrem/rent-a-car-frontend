@@ -1,0 +1,47 @@
+.search-form {
+    background-color: #e7e2e2;
+    border-radius: 10px;
+    opacity: 0.92;
+    
+    
+    
+   
+   }
+   .homepage-button{
+    width: 60%;
+    height: 50%;
+    margin-top: 12px;
+    
+   }
+   
+  
+  .input-group input:focus {
+    border-color: #8A2BE2; 
+    box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25);
+  }
+  @media (max-width: 767px) {
+    .row-search {
+      margin-bottom: 10px; 
+    }
+  
+    .search-form {
+      padding: 0 15px; 
+    }
+  
+    .first-row,
+    .second-row {
+      
+      flex-direction: column;
+    }
+  
+    .row-search {
+      width: 100% !important;
+    }
+  
+    .button-show-car {
+      width: 100% !important;
+      margin-top: 10px; 
+      margin-bottom: 20px;
+    }
+  }
+  
