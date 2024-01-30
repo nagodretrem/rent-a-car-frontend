@@ -11,13 +11,15 @@ import Login from './pages/Login/Login';
 import Footer from './components/Footer/Footer';
 import CartDetail from './pages/CartDetail/CartDetail';
 import SignUp from './pages/SignUp/SignUp';
+import OverLayLoader from './components/OverLayLoader/OverLayLoader';
 
 
 function App() :ReactElement {
   return (
     <>
+      <OverLayLoader/>
       <Navbar/>
-      <div>
+      
       <Routes>
         <Route path="/" element={<Homepage/>}></Route>
         <Route path="/products" element={<Products/>}></Route>
@@ -37,7 +39,7 @@ function App() :ReactElement {
 
 
       </Routes>
-      </div>
+     
       <Footer/>
     </>
   );

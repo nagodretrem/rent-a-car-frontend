@@ -11,7 +11,7 @@ const cartSlice = createSlice({
     {cartItems:(JSON.parse(localStorage.getItem("cart")!) || []) as CartItem[]},
     reducers:{
         addToCart :(state,action) =>{
-            let existingItem =state.cartItems.find((i:CartItem) => i.product.id == action.payload.id);
+            let existingItem =state.cartItems.find((i:CartItem) => i.product.id === action.payload.id);
             if(existingItem){
                 existingItem.quantity++;
             }
