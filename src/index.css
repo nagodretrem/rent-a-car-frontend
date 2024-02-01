@@ -6,36 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   
 }
-.h4{
-font-size: 30px;
-font-weight: bold;
-}
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
-.card-title,.card-header {
-  font-weight: bold;
-}
-.logo img {
-  max-width: 40px; /* Maksimum genişlik */
-  max-height: 40px; /* Maksimum yükseklik */
-  width: auto; /* Genişliği otomatik ayarla */
-  height: auto; /* Yüksekliği otomatik ayarla */
-}
-.product-custom-container {
-  /* İstediğiniz özel stilleri buraya ekleyin */
-  text-align: center;
-}
-
-.product-custom-container .div-table-row {
-  /* İstediğiniz özel stilleri buraya ekleyin */
-  text-align: center;
-  border-bottom: 2px solid #e5edef;
-  padding-bottom: 15px;
-  margin-bottom: 18px;
-}
 
 
 

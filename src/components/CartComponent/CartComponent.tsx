@@ -22,7 +22,7 @@ const CartComponent = (props: Props) => {
     <div className="card mb-3 mt-3">
       {cartState.cartItems.map((cartItem: any, index: number) => (
         
-        <div className="row ">
+        <div key={cartItem.product.id} className="row ">
           <div className="col-md-4">
             <img
               src="https://megarentacar.com/tema/genel/uploads/araclar/renault-clio-hb_1.png"

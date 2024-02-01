@@ -110,5 +110,34 @@
     line-height: 36px;
     display: inline-block;
   }
-  
+  .h4{
+    font-size: 30px;
+    font-weight: bold;
+    }
+    code {
+      font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+    }
+    
+    .card-title,.card-header {
+      font-weight: bold;
+    }
+    .logo img {
+      max-width: 40px; 
+      max-height: 40px; 
+      width: auto;
+      height: auto; 
+    }
+    .product-custom-container {
+      
+      text-align: center;
+    }
+    
+    .product-custom-container .div-table-row {
+      
+      text-align: center;
+      border-bottom: 2px solid #e5edef;
+      padding-bottom: 15px;
+      margin-bottom: 18px;
+    }
   

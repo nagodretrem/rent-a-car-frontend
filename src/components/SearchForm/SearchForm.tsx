@@ -5,7 +5,7 @@ type Props = {}
 
 const SearchForm = (props: Props) => {
   return (
-    <div className="search-form">
+    <div className="search-form mt-3">
         <form className="form-homepage">
           <div className="row first-row">
             <div className="col-6 row-search">
