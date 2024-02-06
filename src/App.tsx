@@ -9,6 +9,7 @@ import Login from './pages/Login/Login';
 import Footer from './components/Footer/Footer';
 import CartDetail from './pages/CartDetail/CartDetail';
 import SignUp from './pages/SignUp/SignUp';
+import RentalPage from './pages/RentalPage/RentalPage';
 
 
 function App() :ReactElement {
@@ -25,6 +26,8 @@ function App() :ReactElement {
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/cart" element={<CartDetail/>}></Route>
         <Route path="/signup" element={<SignUp/>}></Route>
+        <Route path="/rental" element={<RentalPage/>}></Route>
+
 
         
 

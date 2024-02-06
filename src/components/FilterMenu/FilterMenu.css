@@ -1,0 +1,89 @@
+.all-cars-widget {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin: 15px 0;
+    padding: 15px;
+   
+
+    
+  }
+  
+  .cars-widget_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .cars-widget_head h4 {
+    margin: 0;
+  }
+  
+  .clear-filter, .close-widget {
+    font-size: 14px;
+    line-height: 28px;
+    font-weight: 600;
+    text-decoration: none;
+    color: rgb(233, 110, 28);
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  hr {
+    margin: 15px 0;
+  }
+  
+  .car-element{
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: flex-start;
+    
+    
+  }
+  
+  .cars-filter__title {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  
+  .filter-item {
+  display:inline-flex;
+  text-align: center;
+  font-weight: 800;
+  font-size: 13px;
+  opacity: 0.4;
+  text-decoration: none;
+  padding: 8px;
+  margin-bottom: 6px;
+  border: 1px solid #dee2e6;
+  border-radius: 3px;
+  color: #343a40;
+  transition: background-color 0.3s;
+  line-height: 42px; 
+  margin-right: 10px;
+  }
+  
+  .filter-item:hover {
+    background-color: #e9ecef;
+    opacity: 1;
+  }
+  
+  .filter-item.active {
+    background-color: rgb(233, 110, 28);
+    color: white;
+    opacity: 1;
+    box-shadow: rgba(233, 110, 28, 0.3) 0px 2px 4px 0px, rgba(233, 110, 28, 0.5) 0px 2px 16px 0px;
+    transform: scale(1.05);
+  }
+  
+  @media (max-width: 992px) {
+    .all-cars-widget {
+      
+      margin: 15px auto; 
+    }
+  }
+
+
+

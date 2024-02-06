@@ -1,7 +1,7 @@
 .car-box-style{
     font-size: 13px;
     font-weight: 800;
-    color:#d9534f;
+    color: rgb(233, 110, 28);
     display: block;
     text-align: center;
     margin-bottom: 5px;
@@ -89,7 +89,7 @@
     margin-bottom: 3px;
   }
   .card-button-price{
-    text-align: center; /* Texti yatayda ortala */
+    text-align: center; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -132,4 +132,6 @@
       padding-bottom: 15px;
       margin-bottom: 18px;
     }
-  
+.btn.btn-sm{
+  background-color: rgb(233, 110, 28);
+}

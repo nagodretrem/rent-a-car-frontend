@@ -33,7 +33,7 @@ const ProductCard = (props: Props) => {
   };
 
   return (
-    <div className="card mt-3" style={{ width: "20rem" }}>
+    <div className="card mt-3 " style={{ width: "17rem" }}>
       <div className="card">
         <div className="card-header bg-transparent border-0">
           <div className="product-custom-container">
@@ -160,7 +160,7 @@ const ProductCard = (props: Props) => {
             </div>
           </div>
           <div className="info-logo">
-          <button className="btn btn-sm btn-outline-dark detail" onClick={() => openModalForProduct(props.product)}>
+          <button className="btn btn-outline-dark detail" onClick={() => openModalForProduct(props.product)}>
             Detay
             </button>
           </div>
@@ -171,7 +171,7 @@ const ProductCard = (props: Props) => {
           <div className="card-body">
             <div className="row">
               <button
-                className="btn btn-danger btn-sm"
+                className="btn btn-sm"
                 onClick={addProductToCard}
                 style={{ width: "100%" }}
               >

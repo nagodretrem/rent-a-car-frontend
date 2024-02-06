@@ -1,9 +1,16 @@
 import React from 'react'
 import "../../styles/searcform.css"
+import { useNavigate } from 'react-router-dom';
 
 type Props = {}
 
 const SearchForm = (props: Props) => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    
+    navigate('/rental');
+  };
   return (
     <div className="search-form mt-3">
         <form className="form-homepage">
@@ -89,7 +96,7 @@ const SearchForm = (props: Props) => {
               </div>
             </div>
             <div className="col-4 d-flex align-items-center mt-2 justify-content-center button-show-car">
-              <button type="button" className="btn btn-dark homepage-button">
+              <button type="button" className="btn btn-dark homepage-button" onClick={handleButtonClick}>
                 Araç Bul
               </button>
             </div>
