@@ -1,9 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
+import { object, string } from "yup";
+import { ErrorMessage, Field, Form, Formik } from "formik"; 
 
 type Props = {};
 
 const Login = (props: Props) => {
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
+  const validationSchema = object({
+    email: string()
+      .required("Email boş geçilemez")
+      .email("Geçerli bir email adresi giriniz"),
+    password: string()
+      .required("Şifre boş geçilemez")
+      
+  });
+
+  const handleSubmit = () => {};
+
   return (
     <div className="gradient-custom">
       <div className="container py-5 h-100">
@@ -16,43 +34,56 @@ const Login = (props: Props) => {
               <div className="card-body p-5 text-center">
                 <div className="mb-md-5 mt-md-4 pb-5">
                   <h4 className="fw-bold mb-2 ">Üye Girişi</h4>
-                  <hr/>
-                  
+                  <hr />
 
-                  <div className="form-outline form-white mb-4">
-                  <label className="form-label">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control form-control-lg"
-                    />
-                   
-                  </div>
-
-                  <div className="form-outline form-white mb-4">
-                  <label className="form-label" >
-                      Şifre
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control form-control-lg"
-                    />
-                    
-                  </div>
-
-                  <p className="small mb-5 pb-lg-2">
-                    <Link to="#!" className="text-white-50">
-                      Şifreni mi unuttun?
-                    </Link>
-                  </p>
-
-                  <button
-                    className="btn btn-outline-light btn-lg px-5"
-                    type="submit"
+                  <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}
                   >
-                    Giriş Yap
-                  </button>
+                    <Form> 
+                      <div className="form-outline form-white mb-4">
+                        <label className="form-label">Email</label>
+                        <Field
+                          type="email"
+                          name="email"
+                          className="form-control form-control-lg"
+                        />
+                        <ErrorMessage
+                          name="email"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
+
+                      <div className="form-outline form-white mb-4">
+                        <label className="form-label">Şifre</label>
+                        <Field
+                          type="password"
+                          name="password"
+                          className="form-control form-control-lg"
+                        />
+                        <ErrorMessage
+                          name="password"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
+
+                      <p className="small mb-5 pb-lg-2">
+                        <Link to="#!" className="text-white-50">
+                          Şifreni mi unuttun?
+                        </Link>
+                      </p>
+
+                      <button
+                        type="submit"
+                        className="btn btn-outline-light btn-lg px-5"
+                      >
+                        Giriş Yap
+                      </button>
+                    </Form>
+                  </Formik>
 
                   <div className="d-flex justify-content-center text-center mt-4 pt-1">
                     <Link to={""} className="text-white">
@@ -77,7 +108,7 @@ const Login = (props: Props) => {
                         viewBox="0 0 16 16"
                       >
                         <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15" />
-                      </svg> 
+                      </svg>
                     </Link>
                     <Link to={""} className="text-white">
                       <svg

@@ -7,13 +7,24 @@ type Props = {
 };
 
 const FilterMenu = (props: Props) => {
-  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
-  
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
   const handleFilterClick = (value: string) => {
-    setSelectedFilter(value === selectedFilter ? null : value);
+    const index = selectedFilters.indexOf(value);
+    if (index === -1) {
+      setSelectedFilters([...selectedFilters, value]);
+    } else {
+      const updatedFilters = [...selectedFilters];
+      updatedFilters.splice(index, 1);
+      setSelectedFilters(updatedFilters);
+    }
   };
 
+  const isFilterSelected = (value: string) => {
+    return selectedFilters.includes(value);
+  };
+
+  
  
   return (
     <>
@@ -36,7 +47,7 @@ const FilterMenu = (props: Props) => {
           data-val="Ekonomi - Hatchback"
           onClick={() => handleFilterClick("Ekonomi - Hatchback")}
           className={`filter-item ${
-            selectedFilter === "Ekonomi - Hatchback" ? "active" : ""
+            isFilterSelected("Ekonomi - Hatchback") ? "active" : ""
           }`}
         >
           Ekonomi - Hatchback
@@ -46,7 +57,7 @@ const FilterMenu = (props: Props) => {
           data-val="Ekonomi - Sedan"
           onClick={() => handleFilterClick("Ekonomi - Sedan")}
           className={`filter-item ${
-            selectedFilter === "Ekonomi - Sedan" ? "active" : ""
+            isFilterSelected("Ekonomi - Sedan") ? "active" : ""
           }`}
         >
           Ekonomi - Sedan
@@ -55,7 +66,9 @@ const FilterMenu = (props: Props) => {
           to={""}
           data-val="Van"
           onClick={() => handleFilterClick("Van")}
-          className={`filter-item ${selectedFilter === "Van" ? "active" : ""}`}
+          className={`filter-item ${
+            isFilterSelected("Van") ? "active" : ""
+          }`}
         >
           Van
         </Link>
@@ -64,7 +77,7 @@ const FilterMenu = (props: Props) => {
           data-val="Orta - Sedan"
           onClick={() => handleFilterClick("Orta - Sedan")}
           className={`filter-item ${
-            selectedFilter === "Orta - Sedan" ? "active" : ""
+            isFilterSelected("Orta - Sedan") ? "active" : ""
           }`}
         >
           Orta - Sedan
@@ -73,7 +86,9 @@ const FilterMenu = (props: Props) => {
           to={""}
           data-val="SUV"
           onClick={() => handleFilterClick("SUV")}
-          className={`filter-item ${selectedFilter === "SUV" ? "active" : ""}`}
+          className={`filter-item ${
+            isFilterSelected("SUV") ? "active" : ""
+          }`}
         >
           SUV
         </Link>
@@ -82,7 +97,7 @@ const FilterMenu = (props: Props) => {
           data-val="Orta - Hatchback"
           onClick={() => handleFilterClick("Orta - Hatchback")}
           className={`filter-item ${
-            selectedFilter === "Orta - Hatchback" ? "active" : ""
+            isFilterSelected("Orta - Hatchback") ? "active" : ""
           }`}
         >
           Orta - Hatchback
@@ -93,7 +108,7 @@ const FilterMenu = (props: Props) => {
           data-val="Lüx - Sedan"
           onClick={() => handleFilterClick("Lüx - Sedan")}
           className={`filter-item ${
-            selectedFilter === "Lüx - Sedan" ? "active" : ""
+            isFilterSelected("Lüx - Sedan") ? "active" : ""
           }`}
         >
           Lüx - Sedan
@@ -103,7 +118,7 @@ const FilterMenu = (props: Props) => {
           data-val="Premium - Sedan"
           onClick={() => handleFilterClick("Premium - Sedan")}
           className={`filter-item ${
-            selectedFilter === "Premium - Sedan" ? "active" : ""
+            isFilterSelected("Premium - Sedan") ? "active" : ""
           }`}
         >
           Premium - Sedan
@@ -114,11 +129,15 @@ const FilterMenu = (props: Props) => {
         <div className="cars-filter__title">Yakıt Tipi</div>
         <div className="car-element">
         <Link to={""} data-val="1" onClick={() => handleFilterClick("1")}
-          className={`filter-item ${selectedFilter === "1" ? "active" : ""}`}>
+          className={`filter-item ${
+            isFilterSelected("1") ? "active" : ""
+          }`}>
           Dizel
         </Link>
         <Link to={""} data-val="2" onClick={() => handleFilterClick("2")}
-          className={`filter-item ${selectedFilter === "2" ? "active" : ""}`}>
+          className={`filter-item ${
+            isFilterSelected("2") ? "active" : ""
+          }`}>
           Benzin
         </Link>
         </div>
@@ -127,11 +146,15 @@ const FilterMenu = (props: Props) => {
         <div className="cars-filter__title">Şanzıman Tipi</div>
         <div className="car-element">
         <Link to={""} data-val="20" onClick={() => handleFilterClick("20")}
-          className={`filter-item ${selectedFilter === "20" ? "active" : ""}`}>
+          className={`filter-item ${
+            isFilterSelected("20") ? "active" : ""
+          }`}>
           Otomatik
         </Link>
         <Link to={""} data-val="10" onClick={() => handleFilterClick("10")}
-          className={`filter-item ${selectedFilter === "10" ? "active" : ""}`}>
+          className={`filter-item ${
+            isFilterSelected("10") ? "active" : ""
+          }`}>
           Manuel
         </Link>
         </div>
@@ -146,40 +169,45 @@ const FilterMenu = (props: Props) => {
           to={""}
           data-val="5"
           onClick={() => handleFilterClick("5")}
-          className={`filter-item ${selectedFilter === "5" ? "active" : ""}`}
-        >
+          className={`filter-item ${
+            isFilterSelected("5") ? "active" : ""
+          }`}        >
           5
         </Link>
         <Link
           to={""}
           data-val="6"
           onClick={() => handleFilterClick("6")}
-          className={`filter-item ${selectedFilter === "6" ? "active" : ""}`}
-        >
+          className={`filter-item ${
+            isFilterSelected("6") ? "active" : ""
+          }`}        >
           6
         </Link>
         <Link
           to={""}
           data-val="7"
           onClick={() => handleFilterClick("7")}
-          className={`filter-item ${selectedFilter === "7" ? "active" : ""}`}
-        >
+          className={`filter-item ${
+            isFilterSelected("7") ? "active" : ""
+          }`}        >
           7
         </Link>
         <Link
           to={""}
           data-val="8"
           onClick={() => handleFilterClick("8")}
-          className={`filter-item ${selectedFilter === "8" ? "active" : ""}`}
-        >
+          className={`filter-item ${
+            isFilterSelected("8") ? "active" : ""
+          }`}        >
           8
         </Link>
         <Link
           to={""}
           data-val="9"
           onClick={() => handleFilterClick("9")}
-          className={`filter-item ${selectedFilter === "9" ? "active" : ""}`}
-        >
+          className={`filter-item ${
+            isFilterSelected("9") ? "active" : ""
+          }`}        >
           9
         </Link>
         </div>
