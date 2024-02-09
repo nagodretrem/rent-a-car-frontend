@@ -4,12 +4,12 @@ import { Route,Routes } from 'react-router-dom';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Navbar from './components/Navbar/Navbar';
 import AddProduct from './pages/AddProduct/AddProduct';
-
 import Login from './pages/Login/Login';
 import Footer from './components/Footer/Footer';
 import CartDetail from './pages/CartDetail/CartDetail';
 import SignUp from './pages/SignUp/SignUp';
 import RentalPage from './pages/RentalPage/RentalPage';
+import AdminPanel from './pages/AdminPanel/AdminPanel';
 
 
 function App() :ReactElement {
@@ -27,6 +27,8 @@ function App() :ReactElement {
         <Route path="/cart" element={<CartDetail/>}></Route>
         <Route path="/signup" element={<SignUp/>}></Route>
         <Route path="/rental" element={<RentalPage/>}></Route>
+        <Route path="/admin" element={<AdminPanel/>}></Route>
+
 
 
         

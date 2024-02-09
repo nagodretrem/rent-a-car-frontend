@@ -15,9 +15,9 @@ const Navbar = (props: Props) => {
       
 
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to={""}>
           <h4>RENT A CAR</h4>
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -35,7 +35,11 @@ const Navbar = (props: Props) => {
               <Link className="nav-link active" aria-current="page" to={"/"}>
                 Ana Sayfa
               </Link>
+              
             </li>
+            <li className="nav-item">
+        <Link className="nav-link" to={"/admin"}>Admin Panel</Link>
+      </li>
            
             
           </ul>

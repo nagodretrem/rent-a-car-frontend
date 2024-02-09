@@ -159,59 +159,7 @@ const FilterMenu = (props: Props) => {
         </Link>
         </div>
       </div>
-      <div
-        className="cars-filter_block filter_numberofPerson"
-        data-name="persons"
-      >
-        <div className="cars-filter__title">Yolcu Kapasitesi</div>
-        <div className="car-element">
-        <Link
-          to={""}
-          data-val="5"
-          onClick={() => handleFilterClick("5")}
-          className={`filter-item ${
-            isFilterSelected("5") ? "active" : ""
-          }`}        >
-          5
-        </Link>
-        <Link
-          to={""}
-          data-val="6"
-          onClick={() => handleFilterClick("6")}
-          className={`filter-item ${
-            isFilterSelected("6") ? "active" : ""
-          }`}        >
-          6
-        </Link>
-        <Link
-          to={""}
-          data-val="7"
-          onClick={() => handleFilterClick("7")}
-          className={`filter-item ${
-            isFilterSelected("7") ? "active" : ""
-          }`}        >
-          7
-        </Link>
-        <Link
-          to={""}
-          data-val="8"
-          onClick={() => handleFilterClick("8")}
-          className={`filter-item ${
-            isFilterSelected("8") ? "active" : ""
-          }`}        >
-          8
-        </Link>
-        <Link
-          to={""}
-          data-val="9"
-          onClick={() => handleFilterClick("9")}
-          className={`filter-item ${
-            isFilterSelected("9") ? "active" : ""
-          }`}        >
-          9
-        </Link>
-        </div>
-      </div>
+      
     </div>
     
 
