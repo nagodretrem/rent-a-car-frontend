@@ -10,6 +10,8 @@ import CartDetail from './pages/CartDetail/CartDetail';
 import SignUp from './pages/SignUp/SignUp';
 import RentalPage from './pages/RentalPage/RentalPage';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 
 function App() :ReactElement {
@@ -17,7 +19,7 @@ function App() :ReactElement {
     <>
       
       <Navbar/>
-      
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Homepage/>}></Route>
         <Route path="/product-detail/:id" element={<ProductDetail/>}></Route>

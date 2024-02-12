@@ -4,7 +4,7 @@ import tokenService from "../../services/tokenService";
 
 
 const axiosInstance = axios.create({
-    baseURL: "https://dummyjson.com/",
+    baseURL: "http://16.171.12.88:8080/api/",
 });
 
 axiosInstance.interceptors.request.use((config)=>{
@@ -13,22 +13,16 @@ axiosInstance.interceptors.request.use((config)=>{
     let token=tokenService.getToken();
     if(token) config.headers.Authorization=`Bearer ${token}`;
 
-    return Promise.resolve(config)
-
-   // return config;
+    
+   return config;
 });
 axiosInstance.interceptors.response.use((response)=>{
    
-    return Promise.resolve(response)
-
-   // return response;
-}, error =>{
   
-    
-   
-    return Promise.reject(error);
 
-    
+  return response;
+}, error =>{
+
 });
 
 export default axiosInstance;

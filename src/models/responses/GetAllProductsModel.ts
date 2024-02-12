@@ -6,3 +6,10 @@ export interface GetAllProductsModel{
     limit:number;
     products : ProductModel[];
 }
+
+
+
+
+
+
+

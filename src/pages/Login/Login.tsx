@@ -1,11 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom"; 
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; 
 import { object, string } from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik"; 
+import { useDispatch, useSelector } from "react-redux";
+import { loginRequest } from "../../models/login/requests/loginRequest";
+import authService from "../../services/authService";
+import { setAccessToken } from "../../store/slices/authSlice";
+import tokenService from "../../services/tokenService";
 
 type Props = {};
 
 const Login = (props: Props) => {
+  
+  const dispatch= useDispatch();
+  const navigate= useNavigate();
+  const accessToken= useSelector((state:any) => state.auth.accessToken);
+  
   const initialValues = {
     email: "",
     password: "",
@@ -19,8 +29,22 @@ const Login = (props: Props) => {
       .required("Şifre boş geçilemez")
       
   });
+  const onSubmit = (values: any, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
+    const { email, password } = values;
+    const postData: loginRequest = {
+      email: email,
+      password: password,
+    };
 
-  const handleSubmit = () => {};
+    authService.login(postData).then((response) => {
+      dispatch(setAccessToken(postData.email));
+      tokenService.setToken(response.data);
+      console.log(response.data);
+      navigate('/');
+    });
+
+    setSubmitting(false);
+  };
 
   return (
     <div className="gradient-custom">
@@ -39,7 +63,7 @@ const Login = (props: Props) => {
                   <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
-                    onSubmit={handleSubmit}
+                    onSubmit={onSubmit}
                   >
                     <Form> 
                       <div className="form-outline form-white mb-4">
@@ -48,6 +72,8 @@ const Login = (props: Props) => {
                           type="email"
                           name="email"
                           className="form-control form-control-lg"
+                          
+                          
                         />
                         <ErrorMessage
                           name="email"

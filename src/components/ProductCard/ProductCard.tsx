@@ -6,9 +6,11 @@ import { addToCart } from "../../store/slices/cartSlice";
 import "../../styles/product.css";
 import Modal from "../Modal/Modal";
 import "../../styles/modal.css";
+import { GetAllCarResponse } from "../../models/cars/response/getAllCarResponse";
 
 type Props = {
-  product: ProductModel;
+ 
+  car: GetAllCarResponse;
 };
 
 const ProductCard = (props: Props) => {
@@ -17,8 +19,7 @@ const ProductCard = (props: Props) => {
     null
   );
 
-  const openModalForProduct = (product: ProductModel) => {
-    setSelectedProduct(product);
+  const openModalForProduct = () => {
     toggleModal();
   };
 
@@ -28,19 +29,18 @@ const ProductCard = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const addProductToCard = () => {
-    dispatch(addToCart(props.product));
+  const addProductToCart = () => {
+    dispatch(addToCart(props.car));
   };
-
   return (
     <div className="card mt-3 " style={{ width: "17rem" }}>
       <div className="card">
         <div className="card-header bg-transparent border-0">
           <div className="product-custom-container">
             <div className="car-box-style">Ekonomi - Hatchback</div>
-            <div className="car-box-model">{props.product.category}</div>
+            <div className="car-box-model">{props.car.imagePath}</div>
             <div className="div-table-row">
-              <div className="car-box-text">2022-2023 Model</div>
+              <div className="car-box-text">{props.car.modelYear} Model</div>
             </div>
           </div>
         </div>
@@ -49,13 +49,13 @@ const ProductCard = (props: Props) => {
             <div className="col-md-4 text-center">
               <h6 className="title-custom">SINIFI</h6>
               <div>
-                <p>CE</p>
+                <p>{props.car.kilometer}</p>
               </div>
             </div>
             <div className="col-md-4 text-center custom-border">
               <h6 className="title-custom">MİN. SÜRÜCÜ</h6>
               <div>
-                <p>21 YAŞ</p>
+                <p>{props.car.dailyPrice}</p>
               </div>
             </div>
             <div className="col-md-4 ">
@@ -160,7 +160,10 @@ const ProductCard = (props: Props) => {
             </div>
           </div>
           <div className="info-logo">
-          <button className="btn btn-outline-dark detail" onClick={() => openModalForProduct(props.product)}>
+          <button
+              className="btn btn-outline-dark detail"
+              onClick={openModalForProduct}
+            >
             Detay
             </button>
           </div>
@@ -170,9 +173,9 @@ const ProductCard = (props: Props) => {
         <div className="card-footer car-button-rent">
           <div className="card-body">
             <div className="row">
-              <button
+            <button
                 className="btn btn-sm"
-                onClick={addProductToCard}
+                onClick={addProductToCart}
                 style={{ width: "100%" }}
               >
                 Kirala

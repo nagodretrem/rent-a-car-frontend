@@ -5,16 +5,17 @@ import { fetchProducts } from "../../store/slices/productSlice";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterMenu from "../../components/FilterMenu/FilterMenu";
 import "../RentalPage/rentalpage.css"
+import { GetAllCarResponse } from "../../models/cars/response/getAllCarResponse";
+import { fetchCars } from "../../store/slices/carSlice";
 
 type Props = {};
 
 const RentalPage = (props: Props) => {
-  const productsState = useSelector((state: any) => state.product);
+  const carsState = useSelector((state:any) => state.car);
   const dispatch = useDispatch<AppDispatch>();
-
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
+    dispatch(fetchCars());
+  }, [dispatch]);
 
   return (
     <div className="container">
@@ -27,14 +28,15 @@ const RentalPage = (props: Props) => {
         <div className="col-9">
           
           <div className="row ">
-            {productsState.products.map((product: any) => (
-              <div
-                key={product.id}
-                className="col-12 col-md-6 col-lg-6 col-xl-4 mb-3"
-              >
-                <ProductCard product={product} />
-              </div>
-            ))}
+          {carsState.cars.map((car: GetAllCarResponse) => (
+  <div key={car.id}
+       className="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 d-flex justify-content-center align-items-center "
+  >
+    <ProductCard car={car}/>
+  </div>
+))}
+
+
           </div>
         </div>
       </div>
