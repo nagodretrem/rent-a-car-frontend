@@ -1,7 +1,10 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React from 'react'
-import { object, ref, string } from 'yup';
+import { boolean, object, ref, string } from 'yup';
 import { passwordValidator } from '../../utils/customValidations';
+import { Link, useNavigate } from 'react-router-dom';
+import { signupRequest } from '../../models/signup/requests/signupRequest';
+import signupService from '../../services/signupService';
 
 type Props = {}
 
@@ -10,6 +13,7 @@ const SignUp = (props: Props) => {
     email: "",
     password: "",
     confirmpassword:"",
+    agreement: false,
   };
 
   const validationSchema = object({
@@ -24,11 +28,24 @@ const SignUp = (props: Props) => {
                 passwordValidator,
             ),
       confirmpassword: string().required("Şifre doğrulama boş geçilemez")
-      .oneOf([ref("password")],"Şifreler eşleşmiyor")
+      .oneOf([ref("password")],"Şifreler eşleşmiyor"),
+      agreement: boolean().oneOf([true],"Üyelik sözleşmesini kabul etmelisiniz"),
+
   });
-  const onSubmit = () => {
-    
+  const navigate = useNavigate();
+
+  const onSubmit = (values: signupRequest) => {
+    const { email, password } = values;
+    const postData: signupRequest = {
+      email: email,
+      password: password,
     };
+    signupService.signup(postData).then((response) =>{
+      console.log(response.data);
+      navigate("/login")
+    })
+  };
+
   return (
     <div className="gradient-custom">
     <div className="container py-5 h-100">
@@ -91,13 +108,32 @@ const SignUp = (props: Props) => {
                         className="text-danger"
                       />
                     </div>
-
+                    <div className="form-check d-flex justify-content-center mb-4">
+                    <Field
+                      className="form-check-input me-2"
+                      type="checkbox"
+                      name="agreement"
+                    />
+                    <label className="form-check-label text-white">
+                      <Link to={""} className="text-white">
+                        Üyelik sözleşmesini
+                      </Link>{" "}
+                      okudum kabul ediyorum.
+                    </label>
+                    <ErrorMessage
+                      name="agreement"
+                      component="div"
+                      className="text-danger"
+                    />
+                  </div>
+                    
                     <button
                       type="submit"
                       className="btn btn-outline-light btn-lg px-5"
                     >
                       Kayıt Ol
                     </button>
+                    
                   </Form>
                 </Formik>
 
