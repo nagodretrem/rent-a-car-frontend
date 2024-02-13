@@ -18,7 +18,7 @@ const Homepage = (props: Props) => {
   }, [dispatch]);
 
 
-  console.log(carsState);
+  console.log("carstate:",carsState);
 
    
   return (

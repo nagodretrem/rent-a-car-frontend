@@ -11,5 +11,4 @@ class AuthService{
         return axiosInstance.post<string>(this.apiUrl, request);
     }
 }
-
 export default new AuthService();

@@ -1,184 +1,92 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { boolean, date, object, string } from "yup";
-import { passwordValidator } from "../../utils/customValidations";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React from 'react'
+import { object, ref, string } from 'yup';
+import { passwordValidator } from '../../utils/customValidations';
 
-type Props = {};
+type Props = {}
 
 const SignUp = (props: Props) => {
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    birthDate: "",
-    phoneNumber: "",
     email: "",
     password: "",
-    agreement: false,
+    confirmpassword:"",
   };
+
   const validationSchema = object({
-    firstName: string().required("Adınızı giriniz"),
-    lastName: string().required("Soyadınızı giriniz"),
-    birthDate: date().required("Doğum tarihinizi giriniz"),
-    phoneNumber: string().required("Cep telefon numaranızı giriniz"),
     email: string()
       .required("Email boş geçilemez")
       .email("Geçerli bir email adresi giriniz"),
-    password: string()
+      password: string()
       .required("Şifre boş geçilemez").min(3, "Şifre en az 3 karakter olmalıdır.")
-			.max(50).test(
-				"my-custom-rule",
-				"En az 1 büyük, 1 küçük harf ve 1 rakam içermelidir.",
-				passwordValidator,
-			),
-    agreement: boolean().oneOf([true],"Üyelik sözleşmesini kabul etmelisiniz"),
+            .max(50).test(
+                "my-custom-rule",
+                "En az 1 büyük, 1 küçük harf ve 1 rakam içermelidir.",
+                passwordValidator,
+            ),
+      confirmpassword: string().required("Şifre doğrulama boş geçilemez")
+      .oneOf([ref("password")],"Şifreler eşleşmiyor")
   });
-
-  const handleSubmit = () => {};
-  
+  const onSubmit = () => {
+    
+    };
   return (
-    <div className="text-center">
-      <div
-        className="card mx-4 mx-md-5 mt-5 mb-5 shadow-5-strong"
-        style={{
-          background: "hsla(0, 0%, 10%, 0.8)",
-          backdropFilter: "blur(30px)",
-        }}
-      >
-        <div className="card-body py-5 px-md-5">
-          <div className="row d-flex justify-content-center">
-            <div className="col-lg-8">
-              <h2 className="fw-bold mb-5 text-white">Kayıt Olun</h2>
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-              >
-                {({ values, handleSubmit }) => (
-                  <Form>
-                    <div className="row">
-                      <div className="col-md-6 mb-4">
-                        <div className="form-outline">
-                          <label className="form-label text-white">
-                            Adınız
-                          </label>
-                          <Field
-                            type="text"
-                            name="firstName"
-                            className="form-control"
-                          />
-                          <ErrorMessage
-                            name="firstName"
-                            component="div"
-                            className="text-danger"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6 mb-4">
-                        <div className="form-outline">
-                          <label className="form-label text-white">
-                            Soyadınız
-                          </label>
-                          <Field
-                            type="text"
-                            name="lastName"
-                            className="form-control"
-                          />
-                          <ErrorMessage
-                            name="lastName"
-                            component="div"
-                            className="text-danger"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6 mb-4">
-                        <div className="form-outline">
-                          <label className="form-label text-white">
-                            Doğum Tarihi
-                          </label>
-                          <Field
-                            type="date"
-                            name="birthDate"
-                            className="form-control"
-                          />
-                          <ErrorMessage
-                            name="birthDate"
-                            component="div"
-                            className="text-danger"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6 mb-4">
-                        <div className="form-outline">
-                          <label className="form-label text-white">
-                            Cep Telefonu
-                          </label>
-                          <Field
-                            type="tel"
-                            name="phoneNumber"
-                            className="form-control"
-                          />
-                          <ErrorMessage
-                            name="phoneNumber"
-                            component="div"
-                            className="text-danger"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6 mb-4">
-                        <div className="form-outline">
-                          <label className="form-label text-white">
-                            Email
-                          </label>
-                          <Field
-                            type="email"
-                            name="email"
-                            className="form-control"
-                          />
-                          <ErrorMessage
-                            name="email"
-                            component="div"
-                            className="text-danger"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6 mb-4">
-                        <div className="form-outline">
-                          <label className="form-label text-white">
-                            Şifre
-                          </label>
-                          <Field
-                            type="password"
-                            name="password"
-                            className="form-control"
-                          />
-                          <ErrorMessage
-                            name="password"
-                            component="div"
-                            className="text-danger"
-                          />
-                        </div>
-                      </div>
+    <div className="gradient-custom">
+    <div className="container py-5 h-100">
+      <div className="row d-flex justify-content-center align-items-center h-100">
+        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div
+            className="card bg-dark text-white"
+            style={{ borderRadius: "1rem" }}
+          >
+            <div className="card-body p-5 text-center">
+              <div className="mb-md-5 mt-md-4 pb-5">
+                <h4 className="fw-bold mb-2 ">Kayıt Olun</h4>
+                <hr />
+
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={onSubmit}
+                >
+                  <Form> 
+                    <div className="form-outline form-white mb-4">
+                      <label className="form-label">Email</label>
+                      <Field
+                        type="email"
+                        name="email"
+                        className="form-control form-control-lg"
+                        
+                        
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        className="text-danger"
+                      />
                     </div>
 
-                    <div className="form-check d-flex justify-content-center mb-4">
+                    <div className="form-outline form-white mb-4">
+                      <label className="form-label">Şifre</label>
                       <Field
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        name="agreement"
+                        type="password"
+                        name="password"
+                        className="form-control form-control-lg"
                       />
-                      <label className="form-check-label text-white">
-                        <Link to={""} className="text-white">
-                          Üyelik sözleşmesini
-                        </Link>{" "}
-                        okudum kabul ediyorum.
-                      </label>
                       <ErrorMessage
-                        name="agreement"
+                        name="password"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-outline form-white mb-4">
+                      <label className="form-label">Şifreyi tekrar girin</label>
+                      <Field
+                        type="password"
+                        name="confirmpassword"
+                        className="form-control form-control-lg"
+                      />
+                      <ErrorMessage
+                        name="confirmpassword"
                         component="div"
                         className="text-danger"
                       />
@@ -186,19 +94,33 @@ const SignUp = (props: Props) => {
 
                     <button
                       type="submit"
-                      className="btn btn-primary btn-block mb-4"
+                      className="btn btn-outline-light btn-lg px-5"
                     >
                       Kayıt Ol
                     </button>
                   </Form>
-                )}
-              </Formik>
+                </Formik>
+
+               
+              </div>
+
+              
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  </div>
+  )
+}
 
-export default SignUp;
+export default SignUp
+
+
+  
+  
+  
+
+   
+
+
