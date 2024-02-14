@@ -67,7 +67,7 @@ const Navbar = (props: Props) => {
             
           </ul>
           <div className="d-flex">
-            <CartSummary/>
+            
             
             <Link to={""}>
             <button type="button" className="btn">
