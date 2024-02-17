@@ -28,7 +28,7 @@ const Homepage = (props: Props) => {
         <div className="row ">
           
         {carsState.cars.map((car: GetAllCarResponse) => (
-  <div key={car.id}
+        <div key={car.id}
        className="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 d-flex justify-content-center align-items-center "
   >
     <ProductCard car={car}/>

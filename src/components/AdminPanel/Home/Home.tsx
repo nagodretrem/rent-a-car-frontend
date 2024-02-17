@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../AdminNav/Nav";
 import "../Home/home.css";
-import { Button, Modal } from "react-bootstrap";
-import AddCarForm from "../../Forms/Car/AddCarForm";
+import CarTable from "../../Tables/CarTable";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../store/configureStore";
+import { fetchCars } from "../../../store/slices/carSlice";
+import { GetAllCarResponse } from "../../../models/cars/response/getAllCarResponse";
+import BrandTable from "../../Tables/BrandTable";
 
 type Props = {
   Toggle: () => void;
 };
 
 const Home = (props: Props) => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const carsState = useSelector((state: any) => state.car);
+  const brandsState = useSelector((state: any) => state.brand);
 
-  const handleAddNewCarClick = () => {
-    setIsFormOpen(true);
-  };
-
-  const handleCloseForm = () => {
-    setIsFormOpen(false);
-  };
   return (
     <div className="px-3">
       {" "}
@@ -32,7 +30,8 @@ const Home = (props: Props) => {
               {" "}
               <div>
                 {" "}
-                <h3 className="fs-2">10</h3> <p className="fs-5">Cars</p>{" "}
+                <h3 className="fs-2">{carsState.cars.length}</h3>{" "}
+                <p className="fs-5">Cars</p>{" "}
               </div>{" "}
             </div>{" "}
           </div>{" "}
@@ -42,7 +41,7 @@ const Home = (props: Props) => {
               {" "}
               <div>
                 {" "}
-                <h3 className="fs-2">1</h3> <p className="fs-5">Users</p>{" "}
+                <h3 className="fs-2">-</h3> <p className="fs-5">Users</p>{" "}
               </div>{" "}
             </div>{" "}
           </div>{" "}
@@ -52,7 +51,7 @@ const Home = (props: Props) => {
               {" "}
               <div>
                 {" "}
-                <h3 className="fs-2">4</h3> <p className="fs-5">Brands</p>{" "}
+                <h3 className="fs-2">{brandsState.brands.length}</h3> <p className="fs-5">Brands</p>{" "}
               </div>{" "}
             </div>{" "}
           </div>{" "}
@@ -62,97 +61,14 @@ const Home = (props: Props) => {
               {" "}
               <div>
                 {" "}
-                <h3 className="fs-2">5</h3> <p className="fs-5">Models</p>{" "}
+                <h3 className="fs-2">-</h3> <p className="fs-5">Models</p>{" "}
               </div>{" "}
             </div>{" "}
           </div>{" "}
         </div>{" "}
       </div>
-      <table className="table table-hover table-borderless caption-top bg-white rounded mt-2">
-        <caption>
-          <span className="cars-p">Cars</span> {""}
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleAddNewCarClick}
-          >
-            Add New Car
-          </button>
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Brand</th>
-            <th scope="col">Model</th>
-            <th scope="col">Plate</th>
-            <th scope="col">Min. Findeks Rate</th>
-            <th scope="col">Color</th>
-            <th scope="col">Kilometer</th>
-            <th scope="col">Daily Price</th>
-            <th scope="col">Model Year</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>BMW</td>
-            <td>5.20i</td>
-            <td>34 AAA 344</td>
-            <td>555</td>
-            <td>Gri</td>
-            <td>17.000</td>
-            <td>4.650 TL</td>
-            <td>2023</td>
-            <td>
-              <button type="button" className="btn btn-success">
-                Update
-              </button>
-            </td>
-            <td>
-              <button type="button" className="btn btn-danger">
-                Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Mercedes-Benz</td>
-            <td>E</td>
-            <td>34 BBB 344</td>
-            <td>544</td>
-            <td>Siyah</td>
-            <td>12.000</td>
-            <td>6.500 TL</td>
-            <td>2023</td>
-            <td>
-              <button type="button" className="btn btn-success">
-                Update
-              </button>
-            </td>
-            <td>
-              <button type="button" className="btn btn-danger">
-                Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <Modal show={isFormOpen} onHide={handleCloseForm}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Car</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <AddCarForm/>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseForm}>
-            Close
-          </Button>
-          <Button variant="primary">Add Car</Button>
-        </Modal.Footer>
-      </Modal>
+      <CarTable />
+      <BrandTable/>
     </div>
   );
 };

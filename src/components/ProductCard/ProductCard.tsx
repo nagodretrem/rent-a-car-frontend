@@ -29,9 +29,7 @@ const ProductCard = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const addProductToCart = () => {
-    dispatch(addToCart(props.car));
-  };
+  
   return (
     <div className="card mt-3 " style={{ width: "17rem" }}>
       <div className="card">
@@ -175,7 +173,7 @@ const ProductCard = (props: Props) => {
             <div className="row">
             <button
                 className="btn btn-sm"
-                onClick={addProductToCart}
+                
                 style={{ width: "100%" }}
               >
                 Kirala

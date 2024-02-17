@@ -38,7 +38,7 @@ const carSlice = createSlice({
 		});
 		builder.addCase(fetchCars.fulfilled, (state, action) => {
 			state.loading = "loaded";
-			state.cars = action.payload;
+			state.cars=action.payload;
 		});
 		builder.addCase(fetchCars.rejected, state => {
 			state.loading = "error";
