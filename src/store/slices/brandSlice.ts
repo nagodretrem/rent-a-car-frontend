@@ -76,18 +76,25 @@ const brandSlice= createSlice({
         builder.addCase(addBrand.pending,(state) =>{
             state.loading="loading";
         });
-        builder.addCase(addBrand.fulfilled,(state,action)=>{
-            state.brands.push(action.payload);
+       
+        builder.addCase(addBrand.fulfilled, (state, action) => {
+            state.loading = "loaded";
+            state.brands.push(action.payload); 
         });
+        
         builder.addCase(addBrand.rejected,(state) =>{
             state.loading="error";
         });
         builder.addCase(updateBrand.pending,(state)=>{
             state.loading="loading";
         });
-        builder.addCase(updateBrand.fulfilled,(state,action)=>{
+       
+        builder.addCase(updateBrand.fulfilled, (state, action) => {
             state.loading = "loaded";
-            state.brands=action.payload; //?
+            
+            state.brands = state.brands.map((brand: any) =>
+                brand.id === action.payload.id ? action.payload : brand
+            );
         });
         builder.addCase(updateBrand.rejected,(state)=>{
             state.loading="error";

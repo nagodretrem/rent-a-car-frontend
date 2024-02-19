@@ -4,7 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import AddBrandForm from "../Forms/Brand/AddBrandForm";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store/configureStore";
-import { deleteBrand, fetchBrands } from "../../store/slices/brandSlice";
+import { addBrand, deleteBrand, fetchBrands } from "../../store/slices/brandSlice";
 import { GetAllBrandResponse } from "../../models/brands/response/getAllBrandResponse";
 
 type Props = {};
@@ -12,11 +12,14 @@ type Props = {};
 const BrandTable = (props: Props) => {
   const brandsState = useSelector((state: any) => state.brand);
   const dispatch = useDispatch<AppDispatch>();
- 
+  const [selectedBrandId, setSelectedBrandId] = useState<number | null>(null);
 
-  useEffect(() => {
+
+  
+ 
+  useEffect(()=>{
     dispatch(fetchBrands());
-  }, [dispatch]);
+  },[dispatch]);
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -26,17 +29,23 @@ const BrandTable = (props: Props) => {
     setShowAddModal(!showAddModal);
   };
 
-  const handleToggleUpdateModal = () => {
-    setShowUpdateModal(!showUpdateModal);
-  };
 
+  const handleToggleUpdateModal = (brandId: number) => {
+    setSelectedBrandId(brandId);
+    setShowUpdateModal(true);
+  };
+  
+  const handleCloseUpdateModal = () => {
+    setShowUpdateModal(false);
+  };
+  
+
+ 
   const handleDeleteBrand = async (id: number) => {
     try {
-      await dispatch(deleteBrand(id)).unwrap();
-      
+      await dispatch(deleteBrand(id));
       console.log("Marka silindi");
     } catch (error) {
-       
       console.error("Marka silinemedi", error);
     }
   };
@@ -56,13 +65,13 @@ const BrandTable = (props: Props) => {
             Add New Brand
           </button>{" "}
           {""}
-          <button
+          {/* <button
             type="button"
             className="btn btn-success"
             onClick={handleToggleUpdateModal}
           >
             Update
-          </button>
+          </button> */}
         </caption>
         <thead>
           <tr>
@@ -83,42 +92,37 @@ const BrandTable = (props: Props) => {
                   Delete
                 </button>
               </td>
+              <td>
+              <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={() => handleToggleUpdateModal(brand.id)}
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
       <Modal show={showAddModal} onHide={handleToggleAddModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Car</Modal.Title>
+          <Modal.Title>Add New Brand</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddBrandForm />
+        <AddBrandForm />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleToggleAddModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleToggleAddModal}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+        
       </Modal>
 
-      <Modal show={showUpdateModal} onHide={handleToggleUpdateModal}>
+      <Modal show={showUpdateModal} onHide={handleCloseUpdateModal}>
         <Modal.Header closeButton>
           <Modal.Title>Update Brand</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <UpdateBrandForm />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleToggleUpdateModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleToggleUpdateModal}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+        <UpdateBrandForm  />
+                </Modal.Body>
+       
       </Modal>
      
     </>

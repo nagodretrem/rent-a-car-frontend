@@ -40,7 +40,6 @@ const Login = (props: Props) => {
     authService.login(postData).then((response) => {
       dispatch(setAccessToken(postData.email));
       tokenService.setToken(response.data);
-      console.log(response.data);
       navigate('/');
     });
 

@@ -1,56 +1,76 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
-import { object, string } from "yup";
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { number, object, string } from "yup";
+import { AppDispatch } from "../../../store/configureStore";
+import { UpdateBrandRequest } from "../../../models/brands/requests/updateBrandRequest";
+import { fetchBrands, updateBrand } from "../../../store/slices/brandSlice";
+import { Alert } from "react-bootstrap";
 
-type Props = {};
+type Props = {  
+
+};
 
 const UpdateBrandForm = (props: Props) => {
+
+  const brandsState= useSelector((state:any)=>state.brand);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [selectedBrand, setSelectedBrand] = useState<number | null>(null);
+
   const initialValues = {
-    id: "",
+    id: 0,
     name: "",
     logoPath: "",
   };
   const validationSchema = object({
-    name: string().required("Name is required"),
-    logoPath: string().required("Kilometer is required"),
+    id: number().required("Id zorunludur"),
+    name: string().min(2,"Marka adı 2 karakterden küçük olamaz.").max(25,"Marka adı 25 karakterden büyük olamaz").required("Marka adı girmek zorunludur."),
+    logoPath: string().required("Logopath girmek zorunludur"),
   });
-  const handleSubmit = (
-    values: any,
-    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
-  ) => {
-    console.log(values);
-    setSubmitting(false);
-  };
+  const handleUpdateBrand = async (updateBrandRequest: UpdateBrandRequest, { resetForm }: FormikHelpers<UpdateBrandRequest>) => {
+    await dispatch(updateBrand(updateBrandRequest));
+    resetForm();
+};
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={handleSubmit}
+      onSubmit={handleUpdateBrand}
     >
+       {({ errors, touched }) => (
       <Form>
         <div className="mb-3">
           <label className="form-label">
             ID
           </label>
-          <Field type="text" className="form-control" id="id" name="id" />
+          <Field type="text" className={`form-control ${
+                errors.id && touched.id ? "is-invalid" : ""
+              }`} id="id" name="id" />
           <ErrorMessage name="id" component="div" className="text-danger" />
         </div>
 
         <div className="mb-3">
           <label className="form-label">Name</label>
-          <Field type="text" className="form-control" name="name" />
+          <Field type="text"  className={`form-control ${
+                errors.name && touched.name ? "is-invalid" : ""
+              }`} name="name" />
           <ErrorMessage name="name" component="div" className="text-danger" />
         </div>
         <div className="mb-3">
-          <label htmlFor="logopath" className="form-label">LogoPath</label>
-          <Field type="text" className="form-control" name="logopath" />
-          <ErrorMessage name="logopath" component="div" className="text-danger" />
+          <label htmlFor="logoPath" className="form-label">LogoPath</label>
+          <Field type="text" className={`form-control ${
+                errors.logoPath && touched.logoPath ? "is-invalid" : ""
+              }`} name="logoPath" />
+          <ErrorMessage name="logoPath" component="div" className="text-danger" />
         </div>
 
         <button type="submit" className="btn btn-primary">
-          Add Car
+          Update Brand
         </button>
       </Form>
+      )}
     </Formik>
   );
 };
