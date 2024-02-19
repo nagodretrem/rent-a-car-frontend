@@ -1,68 +1,55 @@
 import React, { useEffect, useState } from "react";
-import UpdateBrandForm from "../Forms/Brand/UpdateBrandForm";
-import { Button, Modal } from "react-bootstrap";
-import AddBrandForm from "../Forms/Brand/AddBrandForm";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store/configureStore";
-import { addBrand, deleteBrand, fetchBrands } from "../../store/slices/brandSlice";
-import { GetAllBrandResponse } from "../../models/brands/response/getAllBrandResponse";
+import { deleteColor, fetchColors } from "../../store/slices/colorSlice";
+import { GetAllColorResponse } from "../../models/color/response/getAllColorResponse";
+import { Modal } from "react-bootstrap";
+import AddColorForm from "../Forms/Color/AddColorForm";
+import UpdateColorForm from "../Forms/Color/UpdateColorForm";
 
 type Props = {};
 
-const BrandTable = (props: Props) => {
-  const brandsState = useSelector((state: any) => state.brand);
-  const dispatch = useDispatch<AppDispatch>();
-  const [selectedBrandId, setSelectedBrandId] = useState<number | null>(null);
-
-
-  
- 
-  useEffect(()=>{
-    dispatch(fetchBrands());
-  },[dispatch]);
-
+const ColorTable = (props: Props) => {
+  const colorsState= useSelector((state:any)=> state.color);
+  const dispatch= useDispatch<AppDispatch>();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
- 
+  const [selectedBrandId, setSelectedBrandId] = useState<number | null>(null);
 
+  useEffect(()=>{
+    dispatch(fetchColors());
+  },[dispatch]);
   const handleToggleAddModal = () => {
     setShowAddModal(!showAddModal);
   };
-
-
+  const handleCloseUpdateModal = () => {
+    setShowUpdateModal(false);
+  };
   const handleToggleUpdateModal = (brandId: number) => {
     setSelectedBrandId(brandId);
     setShowUpdateModal(true);
   };
-  
-  const handleCloseUpdateModal = () => {
-    setShowUpdateModal(false);
-  };
-  
 
- 
-  const handleDeleteBrand = async (id: number) => {
+  const handleDeleteColor =async(id:number)=>{
     try {
-      await dispatch(deleteBrand(id));
-      console.log("Marka silindi");
-    } catch (error) {
-      console.error("Marka silinemedi", error);
+        await dispatch(deleteColor(id));
+        console.log("Renk silindi");
+    } catch(error){
+        console.error("Renk silinemedi",error)
     }
   };
- 
- 
- 
+
   return (
     <>
       <table className="table table-hover table-borderless caption-top bg-white rounded mt-2">
         <caption>
-          <span className="cars-p">Brands</span> {""}
+          <span className="cars-p">Colors</span> {""}
           <button
             type="button"
             className="btn btn-primary"
             onClick={handleToggleAddModal}
           >
-            Add New Brand
+            Add New Color
           </button>{" "}
           {""}
           
@@ -71,18 +58,18 @@ const BrandTable = (props: Props) => {
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">LogoPath</th>
+            <th scope="col">Code</th>
           </tr>
         </thead>
         <tbody>
-          {brandsState.brands.map((brand: GetAllBrandResponse) => (
-            <tr key={brand.id}>
-              <th scope="row">{brand.id}</th>
-              <td>{brand.name}</td>
-              <td>{brand.logoPath}</td>
+          {colorsState.colors.map((color: GetAllColorResponse) => (
+            <tr key={color.id}>
+              <th scope="row">{color.id}</th>
+              <td>{color.name}</td>
+              <td>{color.code}</td>
 
               <td>
-                <button type="button" className="btn btn-danger" onClick={() => handleDeleteBrand(brand.id)}>
+                <button type="button" className="btn btn-danger" onClick={() => handleDeleteColor(color.id)}>
                   Delete
                 </button>
               </td>
@@ -90,7 +77,7 @@ const BrandTable = (props: Props) => {
               <button
                   type="button"
                   className="btn btn-success"
-                  onClick={() => handleToggleUpdateModal(brand.id)}
+                  onClick={() => handleToggleUpdateModal(color.id)}
                 >
                   Update
                 </button>
@@ -101,26 +88,27 @@ const BrandTable = (props: Props) => {
       </table>
       <Modal show={showAddModal} onHide={handleToggleAddModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Brand</Modal.Title>
+          <Modal.Title>Add New Color</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <AddBrandForm />
+        <AddColorForm />
         </Modal.Body>
         
       </Modal>
 
       <Modal show={showUpdateModal} onHide={handleCloseUpdateModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Update Brand</Modal.Title>
+          <Modal.Title>Update Color</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <UpdateBrandForm  />
+        <UpdateColorForm  />
                 </Modal.Body>
        
       </Modal>
      
     </>
+
   );
 };
 
-export default BrandTable;
+export default ColorTable;

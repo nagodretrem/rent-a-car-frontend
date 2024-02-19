@@ -1,1 +1,4 @@
-export interface GetAllColorResponse{}
+export interface GetAllColorResponse{ 
+    id:number;
+    name: string;
+    code: string;}

@@ -1,0 +1,90 @@
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import React, { useState } from 'react'
+import { Alert } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { object, string } from 'yup';
+import { AppDispatch } from '../../../store/configureStore';
+import { AddColorRequest } from '../../../models/color/requests/addColorRequest';
+import { addColor, fetchColors } from '../../../store/slices/colorSlice';
+
+type Props = {}
+
+const AddColorForm = (props: Props) => {
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const dispatch = useDispatch<AppDispatch>();
+    const initialValues = {
+        name: "",
+        code: "",
+      };
+      const validationSchema = object({
+        name: string().min(2,"Renk adı 2 karakterden küçük olamaz.").max(25,"Renk adı 25 karakterden büyük olamaz").required("Renk adı girmek zorunludur."),
+        code: string().required("Renk kodu girmek zorunludur"),
+      });
+      const handleSubmit = async (
+        values: AddColorRequest,
+        { resetForm }: FormikHelpers<AddColorRequest>
+      ) => {
+        try {
+          console.log("Form iletildi", values);
+          await dispatch(addColor(values));
+          setIsSuccess(true);
+          resetForm();
+          dispatch(fetchColors());
+        } catch (error: any) {
+          console.log("Hata:", error);
+        }
+      };
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ errors, touched }) => (
+        <Form>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">
+              Name
+            </label>
+            <Field
+              type="text"
+              name="name"
+              className={`form-control ${
+                errors.name && touched.name ? "is-invalid" : ""
+              }`}
+            />
+            <ErrorMessage name="name" component="div" className="text-danger" />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="code" className="form-label">
+              Code
+            </label> 
+            <Field
+              type="text"
+              className={`form-control ${
+                errors.code && touched.code ? "is-invalid" : ""
+              }`}
+              name="code"
+            />
+            <ErrorMessage
+              name="code"
+              component="div"
+              className="text-danger"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={() => console.log("Button clicked")}
+          >
+            Add Color
+          </button>
+          {isSuccess && <Alert variant="success">Renk eklendi</Alert>}
+        </Form>
+      )}
+    </Formik>
+  )
+}
+
+export default AddColorForm
