@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store/configureStore";
 import { addBrand, deleteBrand, fetchBrands } from "../../store/slices/brandSlice";
 import { GetAllBrandResponse } from "../../models/brands/response/getAllBrandResponse";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -44,9 +45,12 @@ const BrandTable = (props: Props) => {
   const handleDeleteBrand = async (id: number) => {
     try {
       await dispatch(deleteBrand(id));
+      toast.success("Marka başarıyla silindi");
+
       console.log("Marka silindi");
     } catch (error) {
       console.error("Marka silinemedi", error);
+      toast.error("Marka silinemedi");
     }
   };
  

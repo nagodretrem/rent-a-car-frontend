@@ -1,1 +1,11 @@
-export interface UpdateCarRequest{}
+export interface UpdateCarRequest{
+    id:number;
+    plate: string;
+    kilometer: number;
+    dailyPrice: number;
+    modelYear: number;
+    minFindeksRate: number;
+    imagePath: string;
+    modelId: number;
+    colorId: number;
+}

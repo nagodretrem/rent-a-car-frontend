@@ -6,6 +6,7 @@ import { object, string } from 'yup';
 import { AppDispatch } from '../../../store/configureStore';
 import { AddColorRequest } from '../../../models/color/requests/addColorRequest';
 import { addColor, fetchColors } from '../../../store/slices/colorSlice';
+import { toast } from 'react-toastify';
 
 type Props = {}
 
@@ -27,11 +28,13 @@ const AddColorForm = (props: Props) => {
         try {
           console.log("Form iletildi", values);
           await dispatch(addColor(values));
-          setIsSuccess(true);
+          toast.success("Renk başarıyla eklendi");
           resetForm();
           dispatch(fetchColors());
         } catch (error: any) {
           console.log("Hata:", error);
+          toast.error("Failed to add color");
+
         }
       };
   return (
@@ -80,7 +83,6 @@ const AddColorForm = (props: Props) => {
           >
             Add Color
           </button>
-          {isSuccess && <Alert variant="success">Renk eklendi</Alert>}
         </Form>
       )}
     </Formik>

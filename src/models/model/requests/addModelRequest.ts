@@ -1,1 +1,4 @@
-export interface AddModelRequest{}
+export interface AddModelRequest{
+    name:string;
+    brandId: number;
+}

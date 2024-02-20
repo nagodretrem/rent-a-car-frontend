@@ -8,6 +8,7 @@ import { fetchCars } from "../../../store/slices/carSlice";
 import { GetAllCarResponse } from "../../../models/cars/response/getAllCarResponse";
 import BrandTable from "../../Tables/BrandTable";
 import ColorTable from "../../Tables/ColorTable";
+import ModelTable from "../../Tables/ModelTable";
 
 type Props = {
   Toggle: () => void;
@@ -17,6 +18,7 @@ const Home = (props: Props) => {
   const carsState = useSelector((state: any) => state.car);
   const brandsState = useSelector((state: any) => state.brand);
   const colorsState= useSelector((state:any) => state.color);
+  const modelsState= useSelector((state:any)=>state.model);
 
   return (
     <div className="px-3">
@@ -63,7 +65,7 @@ const Home = (props: Props) => {
               {" "}
               <div>
                 {" "}
-                <h3 className="fs-2">-</h3> <p className="fs-5">Models</p>{" "}
+                <h3 className="fs-2">{modelsState.models.length}</h3> <p className="fs-5">Models</p>{" "}
               </div>{" "}
             </div>{" "}
           </div>{" "}
@@ -72,6 +74,7 @@ const Home = (props: Props) => {
       <CarTable />
       <BrandTable/>
       <ColorTable/>
+      <ModelTable/>
     </div>
   );
 };

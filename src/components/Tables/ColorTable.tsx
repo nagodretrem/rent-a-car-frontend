@@ -6,6 +6,7 @@ import { GetAllColorResponse } from "../../models/color/response/getAllColorResp
 import { Modal } from "react-bootstrap";
 import AddColorForm from "../Forms/Color/AddColorForm";
 import UpdateColorForm from "../Forms/Color/UpdateColorForm";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -14,7 +15,7 @@ const ColorTable = (props: Props) => {
   const dispatch= useDispatch<AppDispatch>();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [selectedBrandId, setSelectedBrandId] = useState<number | null>(null);
+  const [selectedColorId, setSelectedColorId] = useState<number | null>(null);
 
   useEffect(()=>{
     dispatch(fetchColors());
@@ -25,17 +26,20 @@ const ColorTable = (props: Props) => {
   const handleCloseUpdateModal = () => {
     setShowUpdateModal(false);
   };
-  const handleToggleUpdateModal = (brandId: number) => {
-    setSelectedBrandId(brandId);
+  const handleToggleUpdateModal = (colorId: number) => {
+    setSelectedColorId(colorId);
     setShowUpdateModal(true);
   };
 
   const handleDeleteColor =async(id:number)=>{
     try {
         await dispatch(deleteColor(id));
+        toast.success("Renk başarıyla silindi");
+
         console.log("Renk silindi");
     } catch(error){
         console.error("Renk silinemedi",error)
+        toast.error("Renk silinemedi");
     }
   };
 

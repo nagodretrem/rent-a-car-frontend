@@ -5,6 +5,7 @@ import { authReducer } from "./slices/authSlice";
 import { carReducer } from "./slices/carSlice";
 import { brandReducer } from "./slices/brandSlice";
 import { colorReducer } from "./slices/colorSlice";
+import { modelReducer } from "./slices/modelSlice";
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   car: carReducer,
   brand: brandReducer,
   color: colorReducer,
+  model: modelReducer,
   cart: cartReducer,
   product: productReducer,
   

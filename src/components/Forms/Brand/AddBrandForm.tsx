@@ -6,6 +6,7 @@ import { addBrand, fetchBrands } from "../../../store/slices/brandSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../store/configureStore";
 import { Alert, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 type Props = {
  
@@ -34,11 +35,13 @@ const AddBrandForm = (props: Props) => {
     try {
       console.log("Form iletildi", values);
       await dispatch(addBrand(values));
-      setIsSuccess(true);
+      toast.success("Marka başarıyla eklendi");
       resetForm();
       dispatch(fetchBrands());
     } catch (error: any) {
       console.log("Hata:", error);
+      toast.error("Failed to add brand");
+
     }
   };
   return (
@@ -87,7 +90,6 @@ const AddBrandForm = (props: Props) => {
           >
             Add Brand
           </button>
-          {isSuccess && <Alert variant="success">Marka eklendi</Alert>}
         </Form>
       )}
     </Formik>
