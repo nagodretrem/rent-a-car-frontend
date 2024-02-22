@@ -1,25 +1,41 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React from 'react'
-import { date, object, string } from 'yup';
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { date, object, string } from "yup";
+import { getClaims } from "../../store/slices/tokenSlice";
 
-type Props = {}
+type Props = {};
 
 const Profile = (props: Props) => {
-    const initialValues = {
-        firstName: "",
-        lastName: "",
-        birthDate: "",
-        nationalityId: "",
-        gsm: "",
-      };
-      const validationSchema = object({
-        firstName: string().required("Adınızı giriniz"),
-        lastName: string().required("Soyadınızı giriniz"),
-        nationalityId: string().required("Tc no zorunludur").matches(/^\d{11}$/, 'NationalityId must be a 11-digit number.'),
-        birthDate: date().required("Doğum tarihinizi giriniz"),
-        gsm: string().required("Cep telefon numaranızı giriniz").matches(/^05\d{9}$/, 'Gsm must be a valid number. Like 05xxxxxxxxx'),
-      });
-      const handleSubmit = () => {};
+  const dispatch = useDispatch();
+  const claims = useSelector((state: any) => state.token.claims);
+
+  const handleGetClaims = () => {
+    dispatch(getClaims());
+  };
+
+  // claims && claims.id
+  console.log(claims && claims.id);
+
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    nationalityId: "",
+    gsm: "",
+  };
+  const validationSchema = object({
+    firstName: string().required("Adınızı giriniz"),
+    lastName: string().required("Soyadınızı giriniz"),
+    nationalityId: string()
+      .required("Tc no zorunludur")
+      .matches(/^\d{11}$/, "NationalityId must be a 11-digit number."),
+    birthDate: date().required("Doğum tarihinizi giriniz"),
+    gsm: string()
+      .required("Cep telefon numaranızı giriniz")
+      .matches(/^05\d{9}$/, "Gsm must be a valid number. Like 05xxxxxxxxx"),
+  });
+  const handleSubmit = () => {};
 
   return (
     <div className="text-center">
@@ -145,7 +161,7 @@ const Profile = (props: Props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
