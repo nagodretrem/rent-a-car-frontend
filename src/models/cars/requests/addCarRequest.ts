@@ -1,4 +1,4 @@
-export interface AddCarRequest{
+export interface AddCarRequest {
     plate: string;
     kilometer: number;
     dailyPrice: number;
@@ -7,4 +7,29 @@ export interface AddCarRequest{
     imagePath: string;
     modelId: number;
     colorId: number;
+    carType: CarType;
+    fuelType: FuelType;
+    transmissionType: TransmissionType;
+}
+export enum FuelType {
+    DIESEL = 'DIESEL',
+    GASOLINE = 'GASOLINE',
+  }
+export enum TransmissionType {
+    AUTOMATIC = 'AUTOMATIC',
+    MANUAL = 'MANUAL',
+}
+export enum CarType {
+    ECOHATCHBACK,
+    ECOSEDAN,
+
+    MIDHATCHBACK,
+    MIDSEDAN,
+
+    LUXURYSEDAN,
+    PREMIUMSEDAN,
+
+    SUV,
+
+    VAN
 }

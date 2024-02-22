@@ -8,4 +8,7 @@ export interface UpdateCarRequest{
     imagePath: string;
     modelId: number;
     colorId: number;
+    carType: string;
+    fuelType: string;
+    transmissionType: string;
 }

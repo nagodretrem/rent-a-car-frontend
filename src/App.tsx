@@ -12,6 +12,7 @@ import RentalPage from './pages/RentalPage/RentalPage';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Profile from './pages/Profile/Profile';
 
 
 function App() :ReactElement {
@@ -30,6 +31,13 @@ function App() :ReactElement {
         <Route path="/signup" element={<SignUp/>}></Route>
         <Route path="/rental" element={<RentalPage/>}></Route>
         <Route path="/admin" element={<AdminPanel/>}></Route>
+        <Route path="/profile" element={<Profile/>}></Route>
+
+        
+
+
+        
+
 
 
 

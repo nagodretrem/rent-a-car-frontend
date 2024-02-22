@@ -3,6 +3,11 @@ import { GetByIdModelResponse } from "../../model/response/getByIdModelResponse"
 import { GetByIdCarResponse } from "./getByIdCarResponse";
 
 export interface GetAllCarResponse{
+   
+    
+    carType: string;
+    fuelType: string;
+    transmissionType: string;
     id:number;
     plate: string;
     kilometer: number;
@@ -14,4 +19,5 @@ export interface GetAllCarResponse{
     color_id: GetByIdColorResponse;
    
 }
+
 

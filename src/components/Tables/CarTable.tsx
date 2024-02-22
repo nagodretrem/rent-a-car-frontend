@@ -70,6 +70,10 @@ const CarTable = (props: Props) => {
             <th scope="col">Kilometer</th>
             <th scope="col">Daily Price</th>
             <th scope="col">Model Year</th>
+            <th scope="col">Araç Tipi</th>
+            <th scope="col">Yakıt Tipi</th>
+            <th scope="col">Vites Tipi</th>
+
           </tr>
         </thead>
         <tbody>
@@ -84,6 +88,10 @@ const CarTable = (props: Props) => {
               <td>{car.kilometer}</td>
               <td>{car.dailyPrice}</td>
               <td>{car.modelYear}</td>
+              <td>{car.carType}</td>
+              <td>{car.fuelType}</td>
+              <td>{car.transmissionType}</td>
+
               <td>
                 <button
                   type="button"

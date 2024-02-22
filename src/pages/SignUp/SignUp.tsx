@@ -9,6 +9,8 @@ import signupService from '../../services/signupService';
 type Props = {}
 
 const SignUp = (props: Props) => {
+ 
+
   const initialValues = {
     email: "",
     password: "",
@@ -42,7 +44,7 @@ const SignUp = (props: Props) => {
     };
     signupService.signup(postData).then((response) =>{
       console.log(response.data);
-      navigate("/login")
+      navigate("/profile")
     })
   };
 
@@ -132,6 +134,8 @@ const SignUp = (props: Props) => {
                       className="btn btn-outline-light btn-lg px-5"
                     >
                       Kayıt Ol
+
+
                     </button>
                     
                   </Form>
