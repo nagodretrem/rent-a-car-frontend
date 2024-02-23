@@ -1,29 +1,43 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { date, object } from "yup";
-import { GetAllCarResponse } from "../../models/cars/response/getAllCarResponse";
+import { GetByIdCarResponse } from "../../models/cars/response/getByIdCarResponse";
+import { getByIdCar } from "../../store/slices/carSlice";
 
 type Props = {};
 
 const RentComponent = (props: Props) => {
-  const carsState = useSelector((state: any) => state.car);
+  const { carId } = useParams();
+  const dispatch = useDispatch();
+
+  const cars = useSelector((state: any) => state.car.cars);
+  const carIdInt = carId ? parseInt(carId) : undefined;
+  const car = cars.find((car: any) => car.id === carIdInt);
+
   const navigate = useNavigate();
+
   const handleNavigate = () => {
-    navigate("/rentalconfirm");
+    navigate("/profile");
   };
+
+  console.log("Car id:", carId);
+
   const initialValues = {
     startDate: "",
     endDate: "",
-    carId: 0,
+    carId: carId ? parseInt(carId) : 0,
     userId: 0,
   };
+
   const validationSchema = object({
     startDate: date().required("Kiralama tarihinizi giriniz"),
     endDate: date().required("Teslim tarihini girin"),
   });
+
   const handleSubmit = () => {};
+
   return (
     <div className="text-center">
       <div
@@ -42,11 +56,14 @@ const RentComponent = (props: Props) => {
                 alt="Card image cap"
               />
               <div className="card-body">
-                <h5 className="card-title">Card title</h5>
+                <h5 className="card-title">{car && car.dailyPrice}</h5>
                 <p className="card-text">
-                  <span>Brand</span>
+                  <span>Model Year: {car && car.modelYear}</span>
+                  <br />
+                  <span>Plate: {car && car.plate}</span>
+                  <br />
+                  <span>Kilometer: {car && car.kilometer}</span>
                 </p>
-                
               </div>
             </div>
             <div className="col-lg-8">
@@ -59,6 +76,17 @@ const RentComponent = (props: Props) => {
                   <Form>
                     <div className="row">
                       <div className="col-md-6 mb-4">
+                        <div className="form-outline">
+                          <label className="form-label text-white">
+                            Car ID
+                          </label>
+                          <Field
+                            type="text"
+                            name="carId"
+                            className="form-control"
+                            value={initialValues.carId}
+                          />
+                        </div>
                         <div className="form-outline">
                           <label className="form-label text-white">
                             Başlangıç Tarihi

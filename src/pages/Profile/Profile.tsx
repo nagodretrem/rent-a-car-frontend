@@ -54,7 +54,7 @@ const Profile = (props: Props) => {
     try {
       console.log("Form iletildi", values);
       await dispatch(addCustomer(values));
-      navigate("/rentpage");
+      navigate("/rentalconfirm");
     } catch (error: any) {
       console.log("Hata:", error);
     }

@@ -1,6 +1,6 @@
 import { GetByIdColorResponse } from "../../color/response/getByIdColorResponse";
 import { GetByIdModelResponse } from "../../model/response/getByIdModelResponse";
-import { CarType, FuelType, TransmissionType } from "../requests/addCarRequest";
+import { Available, CarType, FuelType, TransmissionType } from "../requests/addCarRequest";
 
 export interface GetByIdCarResponse{
     id:number;
@@ -15,4 +15,6 @@ export interface GetByIdCarResponse{
     carType: CarType;
     fuelType: FuelType;
     transmissionType: TransmissionType;
+    available:Available;
+
 }

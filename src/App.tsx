@@ -32,7 +32,7 @@ function App() :ReactElement {
         <Route path="/rental" element={<RentalPage/>}></Route>
         <Route path="/admin" element={<AdminPanel/>}></Route>
         <Route path="/profile" element={<Profile/>}></Route>
-        <Route path="/rentpage" element={<RentComponent/>}></Route>
+        <Route path="/rentpage/:carId" element={<RentComponent/>}></Route>
         <Route path="/rentalconfirm" element={<RentalConfirm/>}></Route>
 
 
