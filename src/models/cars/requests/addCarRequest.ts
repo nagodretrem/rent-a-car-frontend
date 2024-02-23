@@ -25,16 +25,16 @@ export enum TransmissionType {
     MANUAL = 'MANUAL',
 }
 export enum CarType {
-    ECOHATCHBACK,
-    ECOSEDAN,
+    ECOHATCHBACK = 'ECOHATCHBACK',
+    ECOSEDAN = 'ECOSEDAN',
 
-    MIDHATCHBACK,
-    MIDSEDAN,
+    MIDHATCHBACK = 'MIDHATCHBACK',
+    MIDSEDAN = 'MIDSEDAN',
 
-    LUXURYSEDAN,
-    PREMIUMSEDAN,
+    LUXURYSEDAN = 'LUXURYSEDAN',
+    PREMIUMSEDAN = 'PREMIUMSEDAN',
 
-    SUV,
+    SUV = 'SUV',
 
-    VAN
+    VAN = 'VAN',
 }
