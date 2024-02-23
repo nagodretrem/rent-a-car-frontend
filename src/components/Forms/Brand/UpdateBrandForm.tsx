@@ -6,9 +6,10 @@ import { AppDispatch } from "../../../store/configureStore";
 import { UpdateBrandRequest } from "../../../models/brands/requests/updateBrandRequest";
 import { fetchBrands, updateBrand } from "../../../store/slices/brandSlice";
 import { Alert } from "react-bootstrap";
+import { GetAllBrandResponse } from "../../../models/brands/response/getAllBrandResponse";
 
 type Props = {  
-
+ selectedBrandId: number | null;
 };
 
 const UpdateBrandForm = (props: Props) => {
@@ -16,13 +17,21 @@ const UpdateBrandForm = (props: Props) => {
   const brandsState= useSelector((state:any)=>state.brand);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [selectedBrand, setSelectedBrand] = useState<number | null>(null);
+
+  const selectedBrand = props.selectedBrandId
+    ? brandsState.brands.find(
+        (brand: GetAllBrandResponse) => brand.id === props.selectedBrandId
+      )
+    : null;
+
 
   const initialValues = {
-    id: 0,
-    name: "",
-    logoPath: "",
+    id: selectedBrand?.id || 0,
+    name: selectedBrand?.name || "",
+    logoPath: selectedBrand?.logoPath || "",
   };
+
+
   const validationSchema = object({
     id: number().required("Id zorunludur"),
     name: string().min(2,"Marka adı 2 karakterden küçük olamaz.").max(25,"Marka adı 25 karakterden büyük olamaz").required("Marka adı girmek zorunludur."),
@@ -30,6 +39,7 @@ const UpdateBrandForm = (props: Props) => {
   });
   const handleUpdateBrand = async (updateBrandRequest: UpdateBrandRequest, { resetForm }: FormikHelpers<UpdateBrandRequest>) => {
     await dispatch(updateBrand(updateBrandRequest));
+    dispatch(fetchBrands());
     resetForm();
 };
 

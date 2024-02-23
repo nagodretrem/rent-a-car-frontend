@@ -106,7 +106,7 @@ const ModelTable = (props: Props) => {
           <Modal.Title>Update Model</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <UpdateModelForm  />
+        <UpdateModelForm  selectedModelId={selectedModelId}/>
                 </Modal.Body>
        
       </Modal>

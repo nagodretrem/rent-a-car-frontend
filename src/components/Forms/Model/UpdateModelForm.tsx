@@ -5,19 +5,25 @@ import { number, object, string } from 'yup';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { UpdateModelRequest } from '../../../models/model/requests/updateModelRequest';
 import { updateModel } from '../../../store/slices/modelSlice';
+import { GetAllModelResponse } from '../../../models/model/response/getAllModelResponse';
 
-type Props = {}
+type Props = {
+  selectedModelId: number | null;
+}
 
 const UpdateModelForm = (props: Props) => {
     const modelsState= useSelector((state:any)=>state.model);
     const dispatch = useDispatch<AppDispatch>();
     const brandsState = useSelector((state: any) => state.brand);
 
-
+  const selectedModel = props.selectedModelId?modelsState.models.find(
+    (model: GetAllModelResponse) => model.id=== props.selectedModelId
+  ) 
+  : null;
     const initialValues = {
-        id: 0,
-        name: "",
-        brandId: 0,
+        id: selectedModel?.id || 0,
+        name: selectedModel?.name || "",
+        brandId: selectedModel?.brandId || "",
       };
     const validationSchema = object({
         id: number().required("Id zorunludur"),

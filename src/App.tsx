@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 import Homepage from './pages/Homepage/Homepage';
 import { Route,Routes } from 'react-router-dom';
-import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Navbar from './components/Navbar/Navbar';
 import AddProduct from './pages/AddProduct/AddProduct';
 import Login from './pages/Login/Login';
@@ -13,6 +12,8 @@ import AdminPanel from './pages/AdminPanel/AdminPanel';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Profile from './pages/Profile/Profile';
+import RentComponent from './components/Rental/RentComponent';
+import RentalConfirm from './components/Rental/RentalConfirm';
 
 
 function App() :ReactElement {
@@ -23,7 +24,6 @@ function App() :ReactElement {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Homepage/>}></Route>
-        <Route path="/product-detail/:id" element={<ProductDetail/>}></Route>
         <Route path="/add-product" element={<AddProduct/>}></Route>
     
         <Route path="/login" element={<Login/>}></Route>
@@ -32,6 +32,10 @@ function App() :ReactElement {
         <Route path="/rental" element={<RentalPage/>}></Route>
         <Route path="/admin" element={<AdminPanel/>}></Route>
         <Route path="/profile" element={<Profile/>}></Route>
+        <Route path="/rentpage" element={<RentComponent/>}></Route>
+        <Route path="/rentalconfirm" element={<RentalConfirm/>}></Route>
+
+
 
         
 

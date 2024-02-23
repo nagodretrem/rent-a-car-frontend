@@ -1,3 +1,5 @@
+import { Available, CarType, FuelType, TransmissionType } from "./addCarRequest";
+
 export interface UpdateCarRequest{
     id:number;
     plate: string;
@@ -8,7 +10,9 @@ export interface UpdateCarRequest{
     imagePath: string;
     modelId: number;
     colorId: number;
-    carType: string;
-    fuelType: string;
-    transmissionType: string;
+    carType: CarType;
+    fuelType: FuelType;
+    transmissionType: TransmissionType;
+    available:Available;
+
 }

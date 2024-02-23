@@ -1,13 +1,12 @@
 import { GetByIdColorResponse } from "../../color/response/getByIdColorResponse";
 import { GetByIdModelResponse } from "../../model/response/getByIdModelResponse";
+import { Available, CarType, FuelType, TransmissionType } from "../requests/addCarRequest";
 import { GetByIdCarResponse } from "./getByIdCarResponse";
 
 export interface GetAllCarResponse{
    
     
-    carType: string;
-    fuelType: string;
-    transmissionType: string;
+   
     id:number;
     plate: string;
     kilometer: number;
@@ -17,6 +16,11 @@ export interface GetAllCarResponse{
     imagePath: string;
     model_id: GetByIdModelResponse;
     color_id: GetByIdColorResponse;
+    carType: CarType;
+    fuelType: FuelType;
+    transmissionType: TransmissionType;
+    available:Available;
+
    
 }
 

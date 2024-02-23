@@ -105,8 +105,8 @@ const ColorTable = (props: Props) => {
           <Modal.Title>Update Color</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <UpdateColorForm  />
-                </Modal.Body>
+        <UpdateColorForm selectedColorId={selectedColorId}  />
+        </Modal.Body>
        
       </Modal>
      

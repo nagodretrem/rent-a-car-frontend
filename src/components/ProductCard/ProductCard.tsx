@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ProductModel } from "../../models/responses/ProductModel";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/slices/cartSlice";
 import "../../styles/product.css";
@@ -9,7 +9,6 @@ import "../../styles/modal.css";
 import { GetAllCarResponse } from "../../models/cars/response/getAllCarResponse";
 
 type Props = {
- 
   car: GetAllCarResponse;
 };
 
@@ -28,8 +27,11 @@ const ProductCard = (props: Props) => {
   }
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate("/profile");
+  };
 
-  
   return (
     <div className="card mt-3 " style={{ width: "17rem" }}>
       <div className="card">
@@ -158,23 +160,26 @@ const ProductCard = (props: Props) => {
             </div>
           </div>
           <div className="info-logo">
-          <button
+            <button
               className="btn btn-outline-dark detail"
               onClick={openModalForProduct}
             >
-            Detay
+              Detay
             </button>
           </div>
-          <Modal open={showModal} onClose={toggleModal} selectedProduct={selectedProduct} />
-
+          <Modal
+            open={showModal}
+            onClose={toggleModal}
+            selectedProduct={selectedProduct}
+          />
         </div>
         <div className="card-footer car-button-rent">
           <div className="card-body">
             <div className="row">
-            <button
+              <button
                 className="btn btn-sm"
-                
                 style={{ width: "100%" }}
+                onClick={handleNavigate}
               >
                 Kirala
               </button>

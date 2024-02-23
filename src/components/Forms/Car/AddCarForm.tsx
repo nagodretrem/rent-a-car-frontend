@@ -7,6 +7,7 @@ import { fetchBrands } from "../../../store/slices/brandSlice";
 import { fetchModels } from "../../../store/slices/modelSlice";
 import {
   AddCarRequest,
+  Available,
   CarType,
   FuelType,
   TransmissionType,
@@ -45,6 +46,7 @@ const AddCarForm = (props: Props) => {
     carType: CarType.ECOHATCHBACK,
     fuelType: FuelType.DIESEL,
     transmissionType: TransmissionType.AUTOMATIC,
+    available: Available.YES,
   };
 
   const validationSchema = object({
@@ -239,7 +241,7 @@ const AddCarForm = (props: Props) => {
           </div>
           <div className="mb-3">
             <label htmlFor="fuelType" className="form-label">
-              Yakıt Tipi
+              Fuel Type
             </label>
             {""}
             <Field as="select" name="fuelType" className="form-select">
@@ -259,7 +261,7 @@ const AddCarForm = (props: Props) => {
           </div>
           <div className="mb-3">
             <label htmlFor="transmissionType" className="form-label">
-              Yakıt Tipi
+              Transmission Type
             </label>
             {""}
             <Field as="select" name="transmissionType" className="form-select">
@@ -281,7 +283,7 @@ const AddCarForm = (props: Props) => {
           </div>
           <div className="mb-3">
             <label htmlFor="carType" className="form-label">
-              Araç Tipi
+              Car Type
             </label>
             {""}
             <Field as="select" name="carType" className="form-select">
@@ -296,6 +298,27 @@ const AddCarForm = (props: Props) => {
 
             <ErrorMessage
               name="carType"
+              component="div"
+              className="text-danger"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="available" className="form-label">
+              Araç müsait mi?
+            </label>
+            {""}
+            <Field as="select" name="available" className="form-select">
+              <option value="">Araç durumu seçin</option>
+
+              {enumValues(Available).map((available: Available) => (
+                <option key={available} value={available}>
+                  {available}
+                </option>
+              ))}
+            </Field>
+
+            <ErrorMessage
+              name="available"
               component="div"
               className="text-danger"
             />

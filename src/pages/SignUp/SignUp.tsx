@@ -44,7 +44,7 @@ const SignUp = (props: Props) => {
     };
     signupService.signup(postData).then((response) =>{
       console.log(response.data);
-      navigate("/profile")
+      navigate("/login")
     })
   };
 

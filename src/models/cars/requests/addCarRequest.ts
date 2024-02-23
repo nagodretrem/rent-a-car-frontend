@@ -10,6 +10,11 @@ export interface AddCarRequest {
     carType: CarType;
     fuelType: FuelType;
     transmissionType: TransmissionType;
+    available:Available;
+}
+export enum Available{
+    YES='YES',
+    NO='NO',
 }
 export enum FuelType {
     DIESEL = 'DIESEL',

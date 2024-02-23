@@ -28,7 +28,9 @@ const CarTable = (props: Props) => {
   const handleToggleUpdateModal = (carId:number) => {
     setSelectedCarId(carId);
 
+
     setShowUpdateModal(!showUpdateModal);
+
   };
 
   const handleCloseUpdateModal = () => {
@@ -39,6 +41,8 @@ const CarTable = (props: Props) => {
       await dispatch(deleteCar(id));
       toast.success("Araba başarıyla silindi");
       console.log("Araba silindi");
+      dispatch(fetchCars());
+
     } catch (error) {
       console.error("Araba silinemedi", error);
       toast.error("Araba silinemedi");
@@ -65,14 +69,16 @@ const CarTable = (props: Props) => {
             <th scope="col">Brand</th>
             <th scope="col">Model</th>
             <th scope="col">Plate</th>
-            <th scope="col">Min. Findeks Rate</th>
             <th scope="col">Color</th>
             <th scope="col">Kilometer</th>
             <th scope="col">Daily Price</th>
             <th scope="col">Model Year</th>
-            <th scope="col">Araç Tipi</th>
-            <th scope="col">Yakıt Tipi</th>
-            <th scope="col">Vites Tipi</th>
+            <th scope="col">Car Type</th>
+            <th scope="col">Fuel Type</th>
+            <th scope="col">Transmission Type </th>
+            <th scope="col">Available</th>
+
+
 
           </tr>
         </thead>
@@ -81,9 +87,8 @@ const CarTable = (props: Props) => {
             <tr key={car.id}>
               <th scope="row">{car.id}</th>
               <td>{car.model_id && car.model_id.brandResponse ? car.model_id.brandResponse.name : ""}</td>
-              <td>{car.model_id && car.model_id.name ? car.color_id.name: ""}</td>
+              <td>{car.model_id && car.model_id.name ? car.model_id.name: ""}</td>
               <td>{car.plate}</td>
-              <td>{car.minFindeksRate}</td>
               <td>{car.color_id && car.color_id.name ? car.color_id.name : ""}</td>
               <td>{car.kilometer}</td>
               <td>{car.dailyPrice}</td>
@@ -91,6 +96,8 @@ const CarTable = (props: Props) => {
               <td>{car.carType}</td>
               <td>{car.fuelType}</td>
               <td>{car.transmissionType}</td>
+              <td>{car.available}</td>
+
 
               <td>
                 <button
@@ -126,8 +133,7 @@ const CarTable = (props: Props) => {
           <Modal.Title>Update Car</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <UpdateCarForm />
-        </Modal.Body>
+        <UpdateCarForm selectedCarId={selectedCarId} />        </Modal.Body>
        
       </Modal>
     </>

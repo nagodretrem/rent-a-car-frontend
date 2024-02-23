@@ -5,5 +5,6 @@ export interface UpdateCustomerRequest{
     firstName: string;
     lastName: string;
     gsm: string;
+    address: string,
     birthDate: string;
 }

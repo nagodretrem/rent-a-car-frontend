@@ -118,7 +118,7 @@ const BrandTable = (props: Props) => {
           <Modal.Title>Update Brand</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <UpdateBrandForm  />
+        <UpdateBrandForm selectedBrandId={selectedBrandId}  />
                 </Modal.Body>
        
       </Modal>

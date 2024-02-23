@@ -4,19 +4,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { number, object, string } from 'yup';
 import { AppDispatch } from '../../../store/configureStore';
 import { UpdateColorRequest } from '../../../models/color/requests/updateColorRequest';
-import { updateColor } from '../../../store/slices/colorSlice';
+import { fetchColors, updateColor } from '../../../store/slices/colorSlice';
+import { GetAllColorResponse } from '../../../models/color/response/getAllColorResponse';
 
-type Props = {}
+type Props = {  selectedColorId: number | null;
+}
 
 const UpdateColorForm = (props: Props) => {
     const colorsState = useSelector((state:any)=> state.color);
     const dispatch = useDispatch<AppDispatch>();
     const [selectedBrand, setSelectedBrand] = useState<number | null>(null);
 
+    const selectedColor = props.selectedColorId
+    ? colorsState.colors.find(
+        (color: GetAllColorResponse) => color.id === props.selectedColorId
+      )
+    : null;
+
+
     const initialValues = {
-        id: 0,
-        name: "",
-        code: "",
+        id: selectedColor?.id || 0,
+        name: selectedColor.name || "",
+        code: selectedColor.code || "",
     };
    const validationSchema = object({
         id: number().required("Id zorunludur"),
@@ -25,6 +34,7 @@ const UpdateColorForm = (props: Props) => {
     });
     const handleColorBrand = async (updateColorRequest: UpdateColorRequest, { resetForm }: FormikHelpers<UpdateColorRequest>) => {
         await dispatch(updateColor(updateColorRequest));
+        dispatch(fetchColors());
         resetForm();
     };
     
