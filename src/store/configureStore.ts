@@ -8,6 +8,7 @@ import { colorReducer } from "./slices/colorSlice";
 import { modelReducer } from "./slices/modelSlice";
 import { tokenReducer }  from "./slices/tokenSlice";
 import { customerReducer } from "./slices/customerSlice";
+import { rentalReducer } from "./slices/rentalSlice";
 
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   color: colorReducer,
   model: modelReducer,
   customer: customerReducer,
+  rental: rentalReducer,
   cart: cartReducer,
   product: productReducer,
   token: tokenReducer
