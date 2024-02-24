@@ -1,4 +1,3 @@
-
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,15 +35,16 @@ const RentComponent = (props: Props) => {
   console.log(claims && claims.id);
 
   console.log("Car id:", carId);
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
 
   const initialValues = {
-    startDate: "",
-    endDate: "",
+    startDate: today.toISOString().split('T')[0], // Bugünün tarihi
+    endDate: tomorrow.toISOString().split('T')[0], // Yarının tarihi
     carId: carId ? parseInt(carId) : 0,
     userId: claims?.id ?? 0,
   };
-
- 
   const validationSchema = object({
     startDate: date()
       .required("Kiralama tarihinizi giriniz")
@@ -59,32 +59,38 @@ const RentComponent = (props: Props) => {
         if (!value || isNaN(new Date(value).getTime())) return false; // Geçersiz tarihleri reddet
         return true;
       })
-      .when("startDate", (startDate, schema) => (
-        startDate && schema.min(startDate, "Kiralama süresi maksimum 25 gün olabilir")
-      ))
-      .test("max-date", "Kiralama süresi maksimum 25 gün olabilir", (value, context) => {
-        const startDate = context.parent.startDate;
-        const endDate = value;
-        if (!startDate || !endDate) return true;
-    
-        const differenceInDays = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 3600 * 24);
-        return differenceInDays <= 25;
-      })
-      .test("start-date-before-end-date", "Başlangıç tarihinden önce bir tarih seçemezsiniz", (value, context) => {
-        const startDate = context.parent.startDate;
-        const endDate = value;
-        if (!startDate || !endDate) return true;
-    
-        return new Date(startDate) < new Date(endDate);
-      }),
-      
+      .when(
+        "startDate",
+        (startDate, schema) =>
+          startDate &&
+          schema.min(startDate, "Kiralama süresi maksimum 25 gün olabilir")
+      )
+      .test(
+        "max-date",
+        "Kiralama süresi maksimum 25 gün olabilir",
+        (value, context) => {
+          const startDate = context.parent.startDate;
+          const endDate = value;
+          if (!startDate || !endDate) return true;
+
+          const differenceInDays =
+            (new Date(endDate).getTime() - new Date(startDate).getTime()) /
+            (1000 * 3600 * 24);
+          return differenceInDays <= 25;
+        }
+      )
+      .test(
+        "start-date-before-end-date",
+        "Başlangıç tarihinden önce bir tarih seçemezsiniz",
+        (value, context) => {
+          const startDate = context.parent.startDate;
+          const endDate = value;
+          if (!startDate || !endDate) return true;
+
+          return new Date(startDate) < new Date(endDate);
+        }
+      ),
   });
-  
-  
-  
-  
-  
-  
 
   const handleSubmit = async (values: AddRentalRequest) => {
     try {
@@ -166,7 +172,6 @@ const RentComponent = (props: Props) => {
                         <div
                           className="form-outline"
                           style={{ display: "none" }}
-
                         >
                           <label className="form-label text-white">
                             UserId
@@ -189,7 +194,6 @@ const RentComponent = (props: Props) => {
                         <div
                           className="form-outline"
                           style={{ display: "none" }}
-
                         >
                           <label className="form-label text-white">
                             Car ID
