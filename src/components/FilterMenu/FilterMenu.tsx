@@ -40,9 +40,7 @@ const FilterMenu = (props: Props) => {
     <div className="all-cars-widget t3 filter-aside">
       <div className="cars-widget_head">
         <h4> FİLTRELE</h4>
-        <Link to={""} className="clear-filter t3">
-          Temizle
-        </Link>
+       
       </div>
       <hr />
       <div className="cars-filter_block filter_segment" data-name="segment">

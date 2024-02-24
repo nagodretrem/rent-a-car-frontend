@@ -1,34 +1,30 @@
 .footer{
-    display: flex;
-    flex-direction: column;
-    -webkit-box-flex: 1;
-    flex-grow: 1;
-    -webkit-box-pack: end;
-    justify-content: flex-end;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    
-    
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: flex-end;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
+
 .footer-custom{
-    padding-top: 1.5rem;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: calc(100rem);
-    width: 100%;
-    background-color: rgb(233, 110, 28);
-    box-shadow: rgba(233, 110, 28, 0.3) 0px 2px 4px 0px, rgba(233, 110, 28, 0.5) 0px 2px 16px 0px;
-    
+  padding-top: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(100rem);
+  width: 100%;
+  background-color: rgb(233, 110, 28);
+  box-shadow: rgba(233, 110, 28, 0.3) 0px 2px 4px 0px, rgba(233, 110, 28, 0.5) 0px 2px 16px 0px;
 }
-@media (min-width: 650px) {
-    .footer-custom {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-  }
+
+
 
 .footer-top{
-    -webkit-box-align: center; 
-    align-items: center; 
-    -webkit-box-pack: justify; 
-    justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (min-width: 2560px) {
+  .footer-custom {
+    max-width: none; /* ya da istediğiniz genişlik değeri */
+    width: 100%;
+  }
 }

@@ -6,7 +6,6 @@ import { addToCart } from "../../store/slices/cartSlice";
 import "../../styles/product.css";
 import "../../styles/modal.css";
 import { GetAllCarResponse } from "../../models/cars/response/getAllCarResponse";
-import CarModal from "../CarModal/CarModal";
 import { Button, Modal } from "react-bootstrap";
 
 type Props = {
@@ -48,7 +47,7 @@ const ProductCard = (props: Props) => {
             <div className="col-md-4 text-center">
               <h6 className="title-custom">SINIFI</h6>
               <div>
-                <p>{props.car.kilometer}</p>
+                <p>B</p>
               </div>
             </div>
             <div className="col-md-4 text-center custom-border">
