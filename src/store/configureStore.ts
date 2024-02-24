@@ -9,6 +9,7 @@ import { modelReducer } from "./slices/modelSlice";
 import { tokenReducer }  from "./slices/tokenSlice";
 import { customerReducer } from "./slices/customerSlice";
 import { rentalReducer } from "./slices/rentalSlice";
+import { filtersReducer } from "./slices/filterSlice";
 
 
 const rootReducer = combineReducers({
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   rental: rentalReducer,
   cart: cartReducer,
   product: productReducer,
-  token: tokenReducer
+  token: tokenReducer,
+  filter: filtersReducer,
 });
 
 export const store = configureStore({
@@ -29,4 +31,5 @@ export const store = configureStore({
 });
 
 export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
 export default store;

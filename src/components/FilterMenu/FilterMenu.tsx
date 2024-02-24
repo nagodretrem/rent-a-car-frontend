@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../FilterMenu/FilterMenu.css";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/configureStore";
+import { setSelectedFilters } from "../../store/slices/filterSlice";
 
 
 type Props = {
@@ -8,16 +11,17 @@ type Props = {
 };
 
 const FilterMenu = (props: Props) => {
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const selectedFilters = useSelector((state: RootState) => state.filter.selectedFilters);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleFilterClick = (value: string) => {
     const index = selectedFilters.indexOf(value);
     if (index === -1) {
-      setSelectedFilters([...selectedFilters, value]);
+      dispatch(setSelectedFilters([...selectedFilters, value]));
     } else {
       const updatedFilters = [...selectedFilters];
       updatedFilters.splice(index, 1);
-      setSelectedFilters(updatedFilters);
+      dispatch(setSelectedFilters(updatedFilters));
     }
   };
 
@@ -48,9 +52,9 @@ const FilterMenu = (props: Props) => {
         <Link
           to={""}
           data-val="Ekonomi - Hatchback"
-          onClick={() => handleFilterClick("Ekonomi - Hatchback")}
+          onClick={() => handleFilterClick("ECOHATCHBACK")}
           className={`filter-item ${
-            isFilterSelected("Ekonomi - Hatchback") ? "active" : ""
+            isFilterSelected("ECOHATCHBACK") ? "active" : ""
           }`}
         >
           Ekonomi - Hatchback
@@ -58,9 +62,9 @@ const FilterMenu = (props: Props) => {
         <Link
           to={""}
           data-val="Ekonomi - Sedan"
-          onClick={() => handleFilterClick("Ekonomi - Sedan")}
+          onClick={() => handleFilterClick("ECOSEDAN")}
           className={`filter-item ${
-            isFilterSelected("Ekonomi - Sedan") ? "active" : ""
+            isFilterSelected("ECOSEDAN") ? "active" : ""
           }`}
         >
           Ekonomi - Sedan
@@ -68,9 +72,9 @@ const FilterMenu = (props: Props) => {
         <Link
           to={""}
           data-val="Van"
-          onClick={() => handleFilterClick("Van")}
+          onClick={() => handleFilterClick("VAN")}
           className={`filter-item ${
-            isFilterSelected("Van") ? "active" : ""
+            isFilterSelected("VAN") ? "active" : ""
           }`}
         >
           Van
@@ -78,9 +82,9 @@ const FilterMenu = (props: Props) => {
         <Link
           to={""}
           data-val="Orta - Sedan"
-          onClick={() => handleFilterClick("Orta - Sedan")}
+          onClick={() => handleFilterClick("MIDSEDAN")}
           className={`filter-item ${
-            isFilterSelected("Orta - Sedan") ? "active" : ""
+            isFilterSelected("MIDSEDAN") ? "active" : ""
           }`}
         >
           Orta - Sedan
@@ -98,9 +102,9 @@ const FilterMenu = (props: Props) => {
         <Link
           to={""}
           data-val="Orta - Hatchback"
-          onClick={() => handleFilterClick("Orta - Hatchback")}
+          onClick={() => handleFilterClick("MIDHATCHBACK")}
           className={`filter-item ${
-            isFilterSelected("Orta - Hatchback") ? "active" : ""
+            isFilterSelected("MIDHATCHBACK") ? "active" : ""
           }`}
         >
           Orta - Hatchback
@@ -109,9 +113,9 @@ const FilterMenu = (props: Props) => {
         <Link
           to={""}
           data-val="Lüx - Sedan"
-          onClick={() => handleFilterClick("Lüx - Sedan")}
+          onClick={() => handleFilterClick("LUXURYSEDAN")}
           className={`filter-item ${
-            isFilterSelected("Lüx - Sedan") ? "active" : ""
+            isFilterSelected("LUXURYSEDAN") ? "active" : ""
           }`}
         >
           Lüx - Sedan
@@ -119,9 +123,9 @@ const FilterMenu = (props: Props) => {
         <Link
           to={""}
           data-val="Premium - Sedan"
-          onClick={() => handleFilterClick("Premium - Sedan")}
+          onClick={() => handleFilterClick("PREMIUMSEDAN")}
           className={`filter-item ${
-            isFilterSelected("Premium - Sedan") ? "active" : ""
+            isFilterSelected("PREMIUMSEDAN") ? "active" : ""
           }`}
         >
           Premium - Sedan
@@ -131,15 +135,15 @@ const FilterMenu = (props: Props) => {
       <div className="cars-filter_block filter_fuelType" data-name="fuelType">
         <div className="cars-filter__title">Yakıt Tipi</div>
         <div className="car-element">
-        <Link to={""} data-val="1" onClick={() => handleFilterClick("1")}
+        <Link to={""} data-val="dizel" onClick={() => handleFilterClick("DIESEL")}
           className={`filter-item ${
-            isFilterSelected("1") ? "active" : ""
+            isFilterSelected("DIESEL") ? "active" : ""
           }`}>
           Dizel
         </Link>
-        <Link to={""} data-val="2" onClick={() => handleFilterClick("2")}
+        <Link to={""} data-val="benzin" onClick={() => handleFilterClick("GASOLINE")}
           className={`filter-item ${
-            isFilterSelected("2") ? "active" : ""
+            isFilterSelected("GASOLINE") ? "active" : ""
           }`}>
           Benzin
         </Link>
@@ -148,15 +152,15 @@ const FilterMenu = (props: Props) => {
       <div className="cars-filter_block filter_gearbox" data-name="gearbox">
         <div className="cars-filter__title">Şanzıman Tipi</div>
         <div className="car-element">
-        <Link to={""} data-val="20" onClick={() => handleFilterClick("20")}
+        <Link to={""} data-val="otomatik" onClick={() => handleFilterClick("AUTOMATIC")}
           className={`filter-item ${
-            isFilterSelected("20") ? "active" : ""
+            isFilterSelected("AUTOMATIC") ? "active" : ""
           }`}>
           Otomatik
         </Link>
-        <Link to={""} data-val="10" onClick={() => handleFilterClick("10")}
+        <Link to={""} data-val="manuel" onClick={() => handleFilterClick("MANUAL")}
           className={`filter-item ${
-            isFilterSelected("10") ? "active" : ""
+            isFilterSelected("MANUAL") ? "active" : ""
           }`}>
           Manuel
         </Link>
@@ -171,3 +175,4 @@ const FilterMenu = (props: Props) => {
 };
 
 export default FilterMenu;
+export { FilterMenu} ;
