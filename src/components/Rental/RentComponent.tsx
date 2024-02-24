@@ -11,6 +11,7 @@ import { getClaims } from "../../store/slices/tokenSlice";
 import { AddRentalRequest } from "../../models/rental/request/addRentalRequest";
 import { addRental } from "../../store/slices/rentalSlice";
 import { AppDispatch } from "../../store/configureStore";
+import context from "react-bootstrap/esm/AccordionContext";
 
 type Props = {};
 
@@ -43,10 +44,47 @@ const RentComponent = (props: Props) => {
     userId: claims?.id ?? 0,
   };
 
+ 
   const validationSchema = object({
-    startDate: date().required("Kiralama tarihinizi giriniz"),
-    endDate: date().required("Teslim tarihini girin"),
+    startDate: date()
+      .required("Kiralama tarihinizi giriniz")
+      .test("valid-date", "Geçerli bir tarih seçiniz", (value) => {
+        if (!value || isNaN(new Date(value).getTime())) return false; // Geçersiz tarihleri reddet
+        return true;
+      })
+      .min(new Date(), "Bugünden önceki bir tarih seçemezsiniz"),
+    endDate: date()
+      .required("Teslim tarihini girin")
+      .test("valid-date", "Geçerli bir tarih seçiniz", (value) => {
+        if (!value || isNaN(new Date(value).getTime())) return false; // Geçersiz tarihleri reddet
+        return true;
+      })
+      .when("startDate", (startDate, schema) => (
+        startDate && schema.min(startDate, "Kiralama süresi maksimum 25 gün olabilir")
+      ))
+      .test("max-date", "Kiralama süresi maksimum 25 gün olabilir", (value, context) => {
+        const startDate = context.parent.startDate;
+        const endDate = value;
+        if (!startDate || !endDate) return true;
+    
+        const differenceInDays = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 3600 * 24);
+        return differenceInDays <= 25;
+      })
+      .test("start-date-before-end-date", "Başlangıç tarihinden önce bir tarih seçemezsiniz", (value, context) => {
+        const startDate = context.parent.startDate;
+        const endDate = value;
+        if (!startDate || !endDate) return true;
+    
+        return new Date(startDate) < new Date(endDate);
+      }),
+      
   });
+  
+  
+  
+  
+  
+  
 
   const handleSubmit = async (values: AddRentalRequest) => {
     try {
