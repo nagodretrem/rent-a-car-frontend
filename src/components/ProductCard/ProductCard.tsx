@@ -28,10 +28,10 @@ const ProductCard = (props: Props) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate("/profile");
-  };
 
+  const handleNavigate = () => {
+    navigate(`/rentpage/${props.car.id}`);
+  };
   return (
     <div className="card mt-3 " style={{ width: "17rem" }}>
       <div className="card">

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../FilterMenu/FilterMenu.css";
+
 
 type Props = {
     
@@ -24,7 +25,9 @@ const FilterMenu = (props: Props) => {
     return selectedFilters.includes(value);
   };
 
-  
+  useEffect(() => {
+    console.log("selectedFilters:", selectedFilters);
+  }, [selectedFilters]);
  
   return (
     <>

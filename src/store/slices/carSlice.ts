@@ -65,6 +65,19 @@ export const deleteCar = createAsyncThunk(
 	
 		}
 	);
+	export const getByIdCar = createAsyncThunk(
+		"cars/getByIdCar",
+		async (carId: number, thunkAPI) => {
+		  try {
+			const response = await carService.getById(carId);
+			return response.data;
+		  } catch (error) {
+			console.error("getByIdCar error", error);
+			throw error;
+		  }
+		}
+	);
+
 const carSlice = createSlice({
 	name: "car",
 	initialState: {
@@ -127,6 +140,23 @@ const carSlice = createSlice({
 		builder.addCase(deleteCar.rejected,(state)=>{
             state.loading="error";
         });
+
+		
+		builder.addCase(getByIdCar.pending, (state) => {
+			state.loading = "loading";
+		  });
+		  builder.addCase(getByIdCar.fulfilled, (state, action) => {
+			state.loading = "loaded";
+			const existingCarIndex = state.cars.findIndex((car: any) => car.id === action.payload.id);
+			if (existingCarIndex !== -1) {
+				state.cars[existingCarIndex] = action.payload;
+			} else {
+				state.cars.push(action.payload);
+			}
+		});
+		builder.addCase(getByIdCar.rejected, (state) => {
+			state.loading = "error";
+		  });
 	},
 });
 
