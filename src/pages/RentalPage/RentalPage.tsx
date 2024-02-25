@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../store/configureStore";
-import { fetchProducts } from "../../store/slices/productSlice";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterMenu from "../../components/FilterMenu/FilterMenu";
 import "../RentalPage/rentalpage.css"

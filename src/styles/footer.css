@@ -22,9 +22,9 @@
   align-items: center;
   justify-content: space-between;
 }
-@media (min-width: 2560px) {
+@media (min-width: 1600px) {
   .footer-custom {
-    max-width: none; /* ya da istediğiniz genişlik değeri */
+    max-width: none;
     width: 100%;
   }
 }

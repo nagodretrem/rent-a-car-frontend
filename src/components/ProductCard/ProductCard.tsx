@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ProductModel } from "../../models/responses/ProductModel";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../store/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 import "../../styles/product.css";
 import "../../styles/modal.css";
 import { GetAllCarResponse } from "../../models/cars/response/getAllCarResponse";
@@ -13,6 +11,8 @@ type Props = {
 };
 
 const ProductCard = (props: Props) => {
+  const claims = useSelector((state: any) => state.token.claims);
+  const userId = claims?.id ?? 0; 
   const [showModal, setShowModal] = useState(false);
 
   const handleNavigateModal = () => {
@@ -24,8 +24,12 @@ const ProductCard = (props: Props) => {
   };
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleNavigate = () => {
+    if (!userId) {
+      
+      navigate('/login');
+      return;
+    }
     navigate(`/rentpage/${props.car.id}`);
   };
   return (

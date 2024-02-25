@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { loginRequest } from "../models/login/requests/loginRequest";
 import axiosInstance from "../utils/interceptors/axiosInterceptors";
 
+
 class AuthService{
     public apiUrl: string;
     constructor() {

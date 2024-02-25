@@ -39,16 +39,30 @@ const Profile = (props: Props) => {
     firstName: string().required("Adınızı giriniz"),
     lastName: string().required("Soyadınızı giriniz"),
     nationalityId: string()
-      .required("Tc no zorunludur")
-      .matches(/^\d{11}$/, "NationalityId must be a 11-digit number."),
-    birthDate: date().required("Doğum tarihinizi giriniz"),
+      .required("TC kimlik numarası  zorunludur")
+      .matches(/^\d{11}$/, "TC kimlik numarası 11 haneli bir sayı olmalıdır"),
+   
     gsm: string()
       .required("Cep telefon numaranızı giriniz")
-      .matches(/^05\d{9}$/, "Gsm must be a valid number. Like 05xxxxxxxxx"),
+      .matches(/^05\d{9}$/, "Gsm geçerli bir numara olmalıdır. (05xxxxxxxxx)"),
     address: string()
       .min(5, "Adres bilgisi 5 karakterden az olamaz")
       .max(60)
       .required("Adres bilgisi giriniz"),
+
+      birthDate: date()
+      .required("Doğum tarihinizi giriniz")
+      .max(new Date(), "Geçerli bir doğum tarihi giriniz") 
+      .test("age", "Kullanıcı 21 yaşından küçük olamaz", (value) => {
+        const today = new Date();
+        const birthDate = new Date(value);
+        const age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          return age - 1 >= 21;
+        }
+        return age >= 21;
+      }),
   });
   const handleSubmit = async (values: AddCustomerRequest) => {
     try {

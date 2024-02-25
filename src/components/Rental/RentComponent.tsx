@@ -2,15 +2,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { date, object } from "yup";
-import { GetByIdCarResponse } from "../../models/cars/response/getByIdCarResponse";
-import { getByIdCar } from "../../store/slices/carSlice";
-
+import { date, number, object, ref } from "yup";
 import { getClaims } from "../../store/slices/tokenSlice";
 import { AddRentalRequest } from "../../models/rental/request/addRentalRequest";
 import { addRental } from "../../store/slices/rentalSlice";
 import { AppDispatch } from "../../store/configureStore";
-import context from "react-bootstrap/esm/AccordionContext";
 
 type Props = {};
 
@@ -35,62 +31,31 @@ const RentComponent = (props: Props) => {
   console.log(claims && claims.id);
 
   console.log("Car id:", carId);
-  const today = new Date();
-  const tomorrow = new Date();
-  tomorrow.setDate(today.getDate() + 1);
 
-  const initialValues = {
-    startDate: today.toISOString().split('T')[0], // Bugünün tarihi
-    endDate: tomorrow.toISOString().split('T')[0], // Yarının tarihi
-    carId: carId ? parseInt(carId) : 0,
-    userId: claims?.id ?? 0,
-  };
-  const validationSchema = object({
-    startDate: date()
-      .required("Kiralama tarihinizi giriniz")
-      .test("valid-date", "Geçerli bir tarih seçiniz", (value) => {
-        if (!value || isNaN(new Date(value).getTime())) return false; // Geçersiz tarihleri reddet
-        return true;
-      })
-      .min(new Date(), "Bugünden önceki bir tarih seçemezsiniz"),
-    endDate: date()
-      .required("Teslim tarihini girin")
-      .test("valid-date", "Geçerli bir tarih seçiniz", (value) => {
-        if (!value || isNaN(new Date(value).getTime())) return false; // Geçersiz tarihleri reddet
-        return true;
-      })
-      .when(
-        "startDate",
-        (startDate, schema) =>
-          startDate &&
-          schema.min(startDate, "Kiralama süresi maksimum 25 gün olabilir")
-      )
-      .test(
-        "max-date",
-        "Kiralama süresi maksimum 25 gün olabilir",
-        (value, context) => {
-          const startDate = context.parent.startDate;
-          const endDate = value;
-          if (!startDate || !endDate) return true;
 
-          const differenceInDays =
-            (new Date(endDate).getTime() - new Date(startDate).getTime()) /
-            (1000 * 3600 * 24);
-          return differenceInDays <= 25;
-        }
-      )
-      .test(
-        "start-date-before-end-date",
-        "Başlangıç tarihinden önce bir tarih seçemezsiniz",
-        (value, context) => {
-          const startDate = context.parent.startDate;
-          const endDate = value;
-          if (!startDate || !endDate) return true;
+const initialValues = {
+  startDate: "",
+  endDate: "",
+  carId: carId ? parseInt(carId) : 0,
+  userId: claims?.id ?? 0,
+};
 
-          return new Date(startDate) < new Date(endDate);
-        }
-      ),
-  });
+
+const today = new Date();
+const startDateLimit = new Date(today);
+startDateLimit.setDate(today.getDate() - 1); 
+
+const endDateLimit = new Date(today);
+endDateLimit.setDate(today.getDate() + 25); 
+
+const validationSchema = object().shape({
+  startDate:date().min(startDateLimit, "Bugünden önceki bir tarih seçemezsiniz").required("Başlangıç tarihini girin"),
+  endDate:date()
+    .min(ref("startDate"), "Başlangıç tarihinden önce bir tarih seçemezsiniz").required("Teslim tarihini girin")
+    .max(endDateLimit, "Kiralama süresi maksimum 25 gün olabilir"),
+  carId: number().integer().positive(),
+  userId: number().integer().positive(),
+});
 
   const handleSubmit = async (values: AddRentalRequest) => {
     try {
