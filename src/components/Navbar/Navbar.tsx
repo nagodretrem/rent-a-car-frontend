@@ -74,9 +74,17 @@ const Navbar = (props: Props) => {
           <div className="d-flex">
            
             {loggedIn ? (
+              <>
+              <Link to={"/updateprofile"}>
+               <button type="button" className="btn" >
+               Profil
+             </button>
+             </Link>
               <button type="button" className="btn" onClick={handleLogout}>
                 Çıkış Yap
               </button>
+              
+             </>
             ) : (
               <>
                 <Link to="/login">

@@ -43,10 +43,11 @@ const SignUp = (props: Props) => {
       password: password,
     };
     signupService.signup(postData).then((response) =>{
-      console.log(response.data);
-      navigate("/login")
+      const userId: string = response.data;
+      console.log(userId);
+      navigate("/profile", { state: { userId } }); 
     })
-  };
+};
 
   return (
     <div className="gradient-custom">

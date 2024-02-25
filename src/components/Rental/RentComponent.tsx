@@ -22,7 +22,7 @@ const RentComponent = (props: Props) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/profile");
+    navigate("/rentalpayment");
   };
   const handleGetClaims = () => {
     dispatch(getClaims());

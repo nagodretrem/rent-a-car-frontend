@@ -13,6 +13,8 @@ import Profile from './pages/Profile/Profile';
 import RentComponent from './components/Rental/RentComponent';
 import RentalConfirm from './components/Rental/RentalConfirm';
 import OverlayLoader from './components/OverlayLoader/OverlayLoader';
+import RentalPayment from './components/Rental/RentalPayment';
+import UpdateProfile from './components/UpdateProfile/UpdateProfile';
 
 
 function App() :ReactElement {
@@ -32,6 +34,11 @@ function App() :ReactElement {
         <Route path="/profile" element={<Profile/>}></Route>
         <Route path="/rentpage/:carId" element={<RentComponent/>}></Route>
         <Route path="/rentalconfirm" element={<RentalConfirm/>}></Route>
+        <Route path="/rentalpayment" element={<RentalPayment/>}></Route>
+        <Route path="/updateprofile" element={<UpdateProfile/>}></Route>
+
+
+
 
 
 

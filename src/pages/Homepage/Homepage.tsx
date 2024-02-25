@@ -27,7 +27,7 @@ const Homepage = (props: Props) => {
 
 <div className="hero">
   <div className="text">
-    <h4>Poweful, fun and</h4>
+    <h4>Powerful, fun and</h4>
     <h1>Fierce to <br/> <span>Drive</span></h1>
     <p>Real Poise, Real Power, Real Performance.</p>
     <Link to={"/rental"} className="btn">Araç bul</Link>

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { date, object, string } from "yup";
 import { getClaims } from "../../store/slices/tokenSlice";
 import { AppDispatch } from "../../store/configureStore";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AddCustomerRequest } from "../../models/customer/request/addCustomerRequest";
 import { addCustomer } from "../../store/slices/customerSlice";
 
@@ -14,19 +14,21 @@ const Profile = (props: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const claims = useSelector((state: any) => state.token.claims);
   const navigate = useNavigate();
+  const location = useLocation();
+  const userId = location.state.userId;
+
 
   const handleNavigate = () => {
-    navigate("/rentpage");
+    navigate("/login");
   };
 
   const handleGetClaims = () => {
     dispatch(getClaims());
   };
 
-  console.log(claims && claims.id);
 
   const initialValues = {
-    userId: claims?.id ?? 0,
+    userId: userId,
     firstName: "",
     lastName: "",
     birthDate: "",
@@ -68,7 +70,7 @@ const Profile = (props: Props) => {
     try {
       console.log("Form iletildi", values);
       await dispatch(addCustomer(values));
-      navigate("/rentalconfirm");
+      navigate("/login");
     } catch (error: any) {
       console.log("Hata:", error);
     }
@@ -98,12 +100,12 @@ const Profile = (props: Props) => {
                       <div className="col-md-6 mb-4">
                         <div
                           className="form-outline"
-                          style={{ display: "none" }}
+                          // style={{ display: "none" }}
                         >
                           <label className="form-label text-white">
                             UserId
                           </label>
-                          <div>{claims.userId}</div>
+                          <div>{initialValues.userId}</div>
 
                           <Field
                             type="text"
