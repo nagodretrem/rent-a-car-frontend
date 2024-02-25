@@ -7,6 +7,7 @@ import { getClaims } from "../../store/slices/tokenSlice";
 import { AddRentalRequest } from "../../models/rental/request/addRentalRequest";
 import { addRental } from "../../store/slices/rentalSlice";
 import { AppDispatch } from "../../store/configureStore";
+import rentalService from "../../services/rentalService";
 
 type Props = {};
 
@@ -55,15 +56,24 @@ const validationSchema = object().shape({
   userId: number().integer().positive(),
 });
 
-  const handleSubmit = async (values: AddRentalRequest) => {
-    try {
-      console.log("Form iletildi", values);
-      await dispatch(addRental(values));
-      navigate("/rentalconfirm");
-    } catch (error: any) {
-      console.log("Hata:", error);
-    }
-  };
+  
+  const handleSubmit = (values: AddRentalRequest) => {
+    const { startDate, endDate,carId,userId } = values;
+    const postData: AddRentalRequest = {
+      startDate: startDate,
+      endDate: endDate,
+      carId: carId,
+      userId: userId,
+
+
+    };
+    rentalService.rental(postData).then((response) =>{
+      const rentalId: string = response.data;
+      console.log(rentalId);
+      navigate("/rentalconfirm", { state: { rentalId } }); 
+
+    })
+};
   return (
     <div className="text-center">
       <div
