@@ -21,9 +21,7 @@ const RentComponent = (props: Props) => {
 
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
-    navigate("/rentalpayment");
-  };
+  
   const handleGetClaims = () => {
     dispatch(getClaims());
   };
@@ -61,7 +59,7 @@ const validationSchema = object().shape({
     try {
       console.log("Form iletildi", values);
       await dispatch(addRental(values));
-      navigate("/profile");
+      navigate("/rentalconfirm");
     } catch (error: any) {
       console.log("Hata:", error);
     }

@@ -9,7 +9,7 @@ const Homepage = (props: Props) => {
   const backgrounds = [
     "/public/assets/CarHomepage/bg.jpg",
     "/public/assets/CarHomepage/bg-light.jpg",
-    // Diğer arka plan görüntüleri buraya eklenebilir
+    
   ];
   let index = 0;
 

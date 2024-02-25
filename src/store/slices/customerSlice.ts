@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import customerService from '../../services/customerService';
 import { AddCustomerRequest } from '../../models/customer/request/addCustomerRequest';
+import { UpdateCustomerRequest } from "../../models/customer/request/updateCustomerRequest";
 
 export const fetchCustomers = createAsyncThunk(
 	"customers/fetchCustomers",
@@ -28,7 +29,19 @@ export const addCustomer = createAsyncThunk(
       }
     }
   );
- 
+  export const updateCustomer = createAsyncThunk(
+    "customers/updateCustomer",
+    async (updateCustomerRequest: UpdateCustomerRequest,thunkAPI)=>{
+        try {
+            const response = await customerService.update(updateCustomerRequest);
+            return response.data;
+        } catch (error) {
+            console.error("updatedCustomer error",error);
+            throw error;
+        }
+
+    }
+);
 
 const CustomerSlice= createSlice({
     name:"customer",
@@ -58,6 +71,7 @@ const CustomerSlice= createSlice({
             state.customers.push(action.payload); 
             console.log("Added customer:", action.payload); 
         });
+       
         
         
         builder.addCase(addCustomer.rejected,(state) =>{
@@ -65,7 +79,21 @@ const CustomerSlice= createSlice({
         });
         
 
-       
+        builder.addCase(updateCustomer.pending,state=>{
+			state.loading = "loading";
+
+		});
+		builder.addCase(updateCustomer.fulfilled,(state,action)=>{
+			state.loading = "loaded";
+            
+            state.customers = state.customers.map((customer: any) =>
+                customer.id === action.payload.id ? action.payload : customer
+            );
+		});
+		builder.addCase(updateCustomer.rejected,state=>{
+			state.loading="error";
+
+		});
     }
 })
 export const customerReducer = CustomerSlice.reducer;

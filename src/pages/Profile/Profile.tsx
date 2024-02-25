@@ -26,6 +26,7 @@ const Profile = (props: Props) => {
     dispatch(getClaims());
   };
 
+  console.log(claims && claims.id);
 
   const initialValues = {
     userId: userId,
@@ -100,7 +101,7 @@ const Profile = (props: Props) => {
                       <div className="col-md-6 mb-4">
                         <div
                           className="form-outline"
-                          // style={{ display: "none" }}
+                          style={{ display: "none" }}
                         >
                           <label className="form-label text-white">
                             UserId
