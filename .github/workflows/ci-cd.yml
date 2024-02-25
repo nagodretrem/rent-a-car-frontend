@@ -26,6 +26,6 @@ jobs:
       - name: Pull image from docker hub
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/rent-a-car-frontend:latest
       - name: Delete Old Container
-        run: docker rm -f reactContainer
+        run: docker rm -f rent-a-car-frontend
       - name: Run docker container
-        run: docker run -d -p 3000:80 --name reactContainer ${{ secrets.DOCKER_USERNAME }}/rent-a-car-frontend 
+        run: docker run -d -p 3000:80 --name rent-a-car-frontend ${{ secrets.DOCKER_USERNAME }}/rent-a-car-frontend 
