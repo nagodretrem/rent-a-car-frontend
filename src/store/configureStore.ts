@@ -1,6 +1,4 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { cartReducer } from "./slices/cartSlice";
-import { productReducer } from "./slices/productSlice";
 import { authReducer } from "./slices/authSlice";
 import { carReducer } from "./slices/carSlice";
 import { brandReducer } from "./slices/brandSlice";
@@ -9,6 +7,8 @@ import { modelReducer } from "./slices/modelSlice";
 import { tokenReducer }  from "./slices/tokenSlice";
 import { customerReducer } from "./slices/customerSlice";
 import { rentalReducer } from "./slices/rentalSlice";
+import { filtersReducer } from "./slices/filterSlice";
+import { loadingReducer } from "./slices/loadingSlice";
 
 
 const rootReducer = combineReducers({
@@ -19,9 +19,9 @@ const rootReducer = combineReducers({
   model: modelReducer,
   customer: customerReducer,
   rental: rentalReducer,
-  cart: cartReducer,
-  product: productReducer,
-  token: tokenReducer
+  token: tokenReducer,
+  filter: filtersReducer,
+  loading: loadingReducer,
 });
 
 export const store = configureStore({
@@ -29,4 +29,5 @@ export const store = configureStore({
 });
 
 export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
 export default store;

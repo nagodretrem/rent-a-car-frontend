@@ -1,16 +1,13 @@
-
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { date, object } from "yup";
-import { GetByIdCarResponse } from "../../models/cars/response/getByIdCarResponse";
-import { getByIdCar } from "../../store/slices/carSlice";
-
+import { date, number, object, ref } from "yup";
 import { getClaims } from "../../store/slices/tokenSlice";
 import { AddRentalRequest } from "../../models/rental/request/addRentalRequest";
 import { addRental } from "../../store/slices/rentalSlice";
 import { AppDispatch } from "../../store/configureStore";
+import rentalService from "../../services/rentalService";
 
 type Props = {};
 
@@ -25,9 +22,7 @@ const RentComponent = (props: Props) => {
 
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
-    navigate("/profile");
-  };
+  
   const handleGetClaims = () => {
     dispatch(getClaims());
   };
@@ -36,27 +31,49 @@ const RentComponent = (props: Props) => {
 
   console.log("Car id:", carId);
 
-  const initialValues = {
-    startDate: "",
-    endDate: "",
-    carId: carId ? parseInt(carId) : 0,
-    userId: claims?.id ?? 0,
-  };
 
-  const validationSchema = object({
-    startDate: date().required("Kiralama tarihinizi giriniz"),
-    endDate: date().required("Teslim tarihini girin"),
-  });
+const initialValues = {
+  startDate: "",
+  endDate: "",
+  carId: carId ? parseInt(carId) : 0,
+  userId: claims?.id ?? 0,
+};
 
-  const handleSubmit = async (values: AddRentalRequest) => {
-    try {
-      console.log("Form iletildi", values);
-      await dispatch(addRental(values));
-      navigate("/profile");
-    } catch (error: any) {
-      console.log("Hata:", error);
-    }
-  };
+
+const today = new Date();
+const startDateLimit = new Date(today);
+startDateLimit.setDate(today.getDate() - 1); 
+
+const endDateLimit = new Date(today);
+endDateLimit.setDate(today.getDate() + 25); 
+
+const validationSchema = object().shape({
+  startDate:date().min(startDateLimit, "Bugünden önceki bir tarih seçemezsiniz").required("Başlangıç tarihini girin"),
+  endDate:date()
+    .min(ref("startDate"), "Başlangıç tarihinden önce bir tarih seçemezsiniz").required("Teslim tarihini girin")
+    .max(endDateLimit, "Kiralama süresi maksimum 25 gün olabilir"),
+  carId: number().integer().positive(),
+  userId: number().integer().positive(),
+});
+
+  
+  const handleSubmit = (values: AddRentalRequest) => {
+    const { startDate, endDate,carId,userId } = values;
+    const postData: AddRentalRequest = {
+      startDate: startDate,
+      endDate: endDate,
+      carId: carId,
+      userId: userId,
+
+
+    };
+    rentalService.rental(postData).then((response) =>{
+      const rentalId: string = response.data;
+      console.log(rentalId);
+      navigate("/rentalconfirm", { state: { rentalId } }); 
+
+    })
+};
   return (
     <div className="text-center">
       <div
@@ -128,7 +145,6 @@ const RentComponent = (props: Props) => {
                         <div
                           className="form-outline"
                           style={{ display: "none" }}
-
                         >
                           <label className="form-label text-white">
                             UserId
@@ -151,7 +167,6 @@ const RentComponent = (props: Props) => {
                         <div
                           className="form-outline"
                           style={{ display: "none" }}
-
                         >
                           <label className="form-label text-white">
                             Car ID

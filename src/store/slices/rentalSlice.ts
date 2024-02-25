@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import rentalService from "../../services/rentalService";
 import { AddRentalRequest } from "../../models/rental/request/addRentalRequest";
+import { GetAllRentalResponse } from "../../models/rental/response/getAllRentalResponse";
 
 export const fetchRentals = createAsyncThunk(
 	"rentals/fetchRentals",
@@ -28,13 +29,26 @@ export const addRental = createAsyncThunk(
       }
     }
   );
- 
+  export const getById = createAsyncThunk(
+    "rentals/getById",
+    async (rentalId: number, thunkAPI) => {
+      try {
+        const response = await rentalService.getById(rentalId);
+        return response.data;
+      } catch (error) {
+        console.error("getById error", error);
+        throw error;
+      }
+    }
+  );
 
 const RentalSlice= createSlice({
     name:"rental",
     initialState:{
         loading: "initial",
         rentals: [] as any,
+        selectedRental: null as GetAllRentalResponse | null,
+
     },
     reducers:{},
     extraReducers:builder =>{
@@ -64,6 +78,18 @@ const RentalSlice= createSlice({
             state.loading="error";
         });
         
+        builder.addCase(getById.pending, (state) => {
+            state.loading = "loading";
+          });
+          
+          builder.addCase(getById.fulfilled, (state, action) => {
+            state.loading = "loaded";
+            state.selectedRental = action.payload;
+          });
+          
+          builder.addCase(getById.rejected, (state) => {
+            state.loading = "error";
+          });
 
        
     }

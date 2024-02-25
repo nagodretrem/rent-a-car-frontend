@@ -6,9 +6,10 @@ type Props = {};
 
 const Footer = (props: Props) => {
   return (
-    <div className="footer">
-      <footer className="text-center text-lg-start text-muted footer-custom">
-        <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom footer-top">
+    <div className="footer footer-expand-xl">
+      
+      <footer className="text-center text-xl-start text-muted footer-custom">
+        <section className="d-flex justify-content-center justify-content-xl-between p-4 border-bottom footer-top">
           <div className="me-5 d-none d-lg-block">
             <span></span>
           </div>
@@ -142,6 +143,7 @@ const Footer = (props: Props) => {
 
         <div className="text-center p-4">© 2024 Copyright</div>
       </footer>
+      
     </div>
   );
 };
