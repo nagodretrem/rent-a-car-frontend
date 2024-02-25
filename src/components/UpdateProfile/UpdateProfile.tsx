@@ -22,9 +22,10 @@ const UpdateProfile = (props: Props) => {
   };
 
   console.log("User id:",claims && claims.id);
+  console.log("Customer id:",claims.customerId);
 
 const initialValues = {
-  id: 0,
+  id: claims?.customerId ?? 0,
   userId: claims?.id ?? 0,
   firstName: "",
   lastName: "",
@@ -93,7 +94,7 @@ const initialValues = {
                     <div className="col-md-6 mb-4">
                     <div
                         className="form-outline"
-                        // style={{ display: "none" }}
+                        style={{ display: "none" }}
                       >
                         <label className="form-label text-white">
                           Customer id
@@ -102,6 +103,7 @@ const initialValues = {
                         <Field
                           type="text"
                           name="id"
+                          value={initialValues.id}
                           className="form-control"
                         />
                         <ErrorMessage
@@ -112,7 +114,7 @@ const initialValues = {
                       </div>
                       <div
                         className="form-outline"
-                        // style={{ display: "none" }}
+                        style={{ display: "none" }}
                       >
                         <label className="form-label text-white">
                           UserId
@@ -134,6 +136,7 @@ const initialValues = {
 
                       <div className="form-outline">
                         <label className="form-label text-white">
+                          Adınız
                         </label>
                         <Field
                           type="text"
