@@ -17,6 +17,19 @@ export const fetchCustomers = createAsyncThunk(
 	},
 );
 
+export const getByIdCustomer = createAsyncThunk(
+    "customers/getByIdCustomer",
+    async (customerId: number, thunkAPI) => {
+      try {
+        const response = await customerService.getById(customerId);
+        return response.data;
+      } catch (error) {
+        console.error("getByIdCustomer error", error);
+        throw error;
+      }
+    }
+  );
+
 export const addCustomer = createAsyncThunk(
     "customers/addCustomer",
     async (addCustomerRequest: AddCustomerRequest, thunkAPI) => {
@@ -47,6 +60,7 @@ const CustomerSlice= createSlice({
     name:"customer",
     initialState:{
         loading: "initial",
+        customer: null as any, 
         customers: [] as any,
     },
     reducers:{},
@@ -94,6 +108,21 @@ const CustomerSlice= createSlice({
 			state.loading="error";
 
 		});
+
+
+        builder.addCase(getByIdCustomer.pending, state => {
+            state.loading = "loading";
+        });
+        
+        builder.addCase(getByIdCustomer.fulfilled, (state, action) => {
+            state.loading = "loaded";
+            state.customer = action.payload; // Bu satırda action.payload içinde döndürülen müşteri bilgisi olmalı
+        });
+        
+        builder.addCase(getByIdCustomer.rejected, state => {
+            state.loading = "error";
+        });
+        
     }
 })
 export const customerReducer = CustomerSlice.reducer;
