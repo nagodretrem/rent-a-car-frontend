@@ -8,6 +8,8 @@ RUN npm run build
 
 # Step 2: Server With Nginx
 FROM nginx:1.23-alpine
+# Nginx yapılandırma dosyasını kopyalayın
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 WORKDIR /usr/share/nginx/html
 RUN rm -rf *
 COPY --from=build /app/build .
