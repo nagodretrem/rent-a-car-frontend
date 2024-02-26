@@ -15,6 +15,7 @@ import RentalConfirm from './components/Rental/RentalConfirm';
 import OverlayLoader from './components/OverlayLoader/OverlayLoader';
 import RentalPayment from './components/Rental/RentalPayment';
 import UpdateProfile from './components/UpdateProfile/UpdateProfile';
+import OrderPage from './pages/OrderPage/OrderPage';
 
 
 function App() :ReactElement {
@@ -36,6 +37,8 @@ function App() :ReactElement {
         <Route path="/rentalconfirm" element={<RentalConfirm/>}></Route>
         <Route path="/rentalpayment" element={<RentalPayment/>}></Route>
         <Route path="/updateprofile" element={<UpdateProfile/>}></Route>
+        <Route path="/orderpage" element={<OrderPage/>}></Route>
+
 
 
 

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Sidebar from "../../components/AdminPanel/Sidebar/Sidebar";
 import Home from "../../components/AdminPanel/Home/Home";
 import "../AdminPanel/adminpanel.css";
 import { useSelector } from "react-redux";
@@ -28,13 +27,7 @@ const AdminPanel: React.FC<Props> = (props) => {
       {claims && claims.role && claims.role[0] === "ADMIN" && (
         <div className="container-fluid bg-dark min-vh-100">
           <div className="row">
-            {toggle && (
-              <div className="col-4 col-md-2  bg-white vh-100 position-fixed sidebar-menu">
-                <div className="sidebar-wrapper">
-                  <Sidebar />
-                </div>
-              </div>
-            )}
+            
             {toggle && <div className="col-4 col-md-2"></div>}
             <div className="col">
               <Home Toggle={Toggle} />
