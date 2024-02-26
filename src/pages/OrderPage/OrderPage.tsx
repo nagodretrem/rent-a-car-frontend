@@ -1,9 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../OrderPage/orderpage.css";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../store/configureStore";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getClaims } from "../../store/slices/tokenSlice";
+import { getById } from "../../store/slices/rentalSlice";
+import { getByOwnerUser } from "../../store/slices/invoiceSlice";
+import { GetAllInvoiceResponse } from "../../models/invoices/response/getAllInvoiceResponse";
 
 type Props = {};
 
 const OrderPage = (props: Props) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const claims = useSelector((state: any) => state.token.claims);
+  const navigate = useNavigate();
+  const invoicesState = useSelector((state: any) => state.invoice);
+  const ownerUser = claims?.id;
+  const handleGetClaims = () => {
+    dispatch(getClaims());
+  };
+
+  //   console.log("ownerUser:",claims && claims.id);
+
+  useEffect(() => {
+    if (ownerUser) {
+      dispatch(getByOwnerUser(ownerUser));
+    }
+  }, [dispatch, ownerUser]);
+
+  const selectedInvoice = useSelector(
+    (state: any) => state.invoice.selectedInvoice
+  );
+  console.log("Owner User:", ownerUser);
+  const selectedInvoices = invoicesState.invoices.filter(
+    (invoice: GetAllInvoiceResponse) =>
+      invoice.ownerUser === parseInt(ownerUser)
+  );
+  console.log("selected invoice:", selectedInvoices);
+
   return (
     <div className="container px-3 my-5 clearfix">
       <div className="card">
@@ -31,7 +65,7 @@ const OrderPage = (props: Props) => {
                     className="text-center py-3 px-4"
                     style={{ width: "120px" }}
                   >
-                    Quantity
+                    Kilometre
                   </th>
                   <th
                     className="text-right py-3 px-4"
@@ -42,49 +76,50 @@ const OrderPage = (props: Props) => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="p-4">
-                    <div className="row media align-items-start">
+                {selectedInvoices.map((invoice: GetAllInvoiceResponse) => (
+                  <tr key={invoice.id}>
+                    <td className="p-4">
+                      <div className="row media align-items-start">
                         <div className="col-5">
-                      <img
-                        src="https://megarentacar.com/tema/genel/uploads/araclar/renault-clio-hb_1.png"
-                        style={{ width: "150px" }}
-
-                        alt=""
-                      />
+                          <img
+                            src="https://megarentacar.com/tema/genel/uploads/araclar/renault-clio-hb_1.png"
+                            style={{ width: "150px" }}
+                            alt=""
+                          />
+                        </div>
+                        <div className="col-7 media-body">
+                          <p>
+                            {
+                              invoice.rentalResponse.carResponse.model_id
+                                .brandResponse.name
+                            }{" "}
+                            {invoice.rentalResponse.carResponse.model_id.name}{" "}
+                          </p>
+                          <small>
+                            <span className="text-muted">Renk: {invoice.rentalResponse.carResponse.color_id.name}</span>
+                        
+                            &nbsp;
+                            <span className="text-muted">Kiralama Tarihi:{invoice.rentalResponse.startDate} </span> 
+                            &nbsp;
+                            <span className="text-muted">
+                            Teslim Tarihi:{invoice.rentalResponse.endDate}
+                            </span>{" "}
+                           
+                          </small>
+                        </div>
                       </div>
-                      <div className="col-7 media-body">
-                        <a href="#" className="d-block text-dark">
-                          Product 1
-                        </a>
-                        <small>
-                          <span className="text-muted">Color:</span>
-                          <span
-                            className="ui-product-color ui-product-color-sm align-text-bottom"
-                            style={{ background: "#e81e2c" }}
-                          ></span>{" "}
-                          &nbsp;
-                          <span className="text-muted">Size: </span> EU 37
-                          &nbsp;
-                          <span className="text-muted">Ships from: </span> China
-                        </small>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="text-right font-weight-semibold align-middle p-4">
-                    $57.55
-                  </td>
-                  <td className="align-middle p-4">
-                    <input
-                      type="text"
-                      className="form-control text-center"
-                      value="2"
-                    />
-                  </td>
-                  <td className="text-right font-weight-semibold align-middle p-4">
-                    $115.1
-                  </td>
-                </tr>
+                    </td>
+                    <td className="text-right font-weight-semibold align-middle p-4">
+                      {invoice.rentalResponse.carResponse.dailyPrice}{" "}
+                    </td>
+                    <td className="align-middle p-4">
+                      {invoice.rentalResponse.carResponse.kilometer}
+                    </td>
+                    <td className="text-right font-weight-semibold align-middle p-4">
+                      {invoice.totalPrice}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

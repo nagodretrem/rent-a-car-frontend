@@ -79,6 +79,8 @@ const Navbar = (props: Props) => {
               <button type="button" className="btn" >
                Siparişlerim
              </button>
+             </Link>
+             <Link to={"/updateprofile"}>
                <button type="button" className="btn" >
                Profil
              </button>

@@ -4,6 +4,7 @@ import { AddInvoiceResponse } from "../models/invoices/response/addInvoiceRespon
 import { GetAllInvoiceResponse } from "../models/invoices/response/getAllInvoiceResponse";
 import { GetByIdInvoiceResponse } from "../models/invoices/response/getbByIdInvoiceResponse";
 import { UpdateInvoiceResponse } from "../models/invoices/response/updateInvoiceResponse";
+import axiosInstance from "../utils/interceptors/axiosInterceptors";
 import { BaseService } from "./baseService";
 
 class InvoiceService extends BaseService<GetAllInvoiceResponse,
@@ -17,7 +18,12 @@ UpdateInvoiceResponse
 		super();
 		this.apiUrl = "invoices";
 	}
+	async getByOwnerUser(ownerUser:number):Promise<GetAllInvoiceResponse>{
+		const url = `${this.apiUrl}/profile/${ownerUser}`;
+		const response= await axiosInstance.get<GetAllInvoiceResponse>(url);
+		return response.data;
 
+	}
 
 }
 
