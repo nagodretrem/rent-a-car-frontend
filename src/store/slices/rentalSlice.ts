@@ -41,6 +41,7 @@ export const addRental = createAsyncThunk(
       }
     }
   );
+ 
 
 const RentalSlice= createSlice({
     name:"rental",
@@ -77,16 +78,15 @@ const RentalSlice= createSlice({
         builder.addCase(addRental.rejected,(state) =>{
             state.loading="error";
         });
-        
         builder.addCase(getById.pending, (state) => {
             state.loading = "loading";
           });
-          
+
           builder.addCase(getById.fulfilled, (state, action) => {
             state.loading = "loaded";
             state.selectedRental = action.payload;
           });
-          
+
           builder.addCase(getById.rejected, (state) => {
             state.loading = "error";
           });

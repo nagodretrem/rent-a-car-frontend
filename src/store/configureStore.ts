@@ -9,6 +9,8 @@ import { customerReducer } from "./slices/customerSlice";
 import { rentalReducer } from "./slices/rentalSlice";
 import { filtersReducer } from "./slices/filterSlice";
 import { loadingReducer } from "./slices/loadingSlice";
+import { invoiceReducer } from "./slices/invoiceSlice";
+import { discountReducer } from "./slices/discountSlice";
 
 
 const rootReducer = combineReducers({
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
   rental: rentalReducer,
   token: tokenReducer,
   filter: filtersReducer,
+  invoice: invoiceReducer,
+  discount: discountReducer,
   loading: loadingReducer,
 });
 

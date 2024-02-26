@@ -85,6 +85,7 @@ const UpdateProfile = (props: Props) => {
   const handleSubmit = async (updateCustomerRequest: UpdateCustomerRequest) => {
     await dispatch(updateCustomer(updateCustomerRequest));
     dispatch(fetchCustomers());
+    // navigate("/")
   };
 
   return (
@@ -312,7 +313,7 @@ const UpdateProfile = (props: Props) => {
                       style={{ width: "50%" }}
                       onClick={() => handleSubmit(formValues)}
                     >
-                      <i className="bi bi-arrow-right"></i>
+                      Güncelle
                     </button>
                   </Form>
                 )}
