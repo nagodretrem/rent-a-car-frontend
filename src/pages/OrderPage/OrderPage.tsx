@@ -20,7 +20,6 @@ const OrderPage = (props: Props) => {
     dispatch(getClaims());
   };
 
-  //   console.log("ownerUser:",claims && claims.id);
 
   useEffect(() => {
     if (ownerUser) {
