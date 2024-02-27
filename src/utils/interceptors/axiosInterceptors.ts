@@ -15,17 +15,17 @@ axiosInstance.interceptors.request.use((config)=>{
     let token=tokenService.getToken();
     if(token) config.headers.Authorization=`Bearer ${token}`;
 
-    // store.dispatch(increaseRequestCount());
+     store.dispatch(increaseRequestCount());
 
    return config;
 });
 axiosInstance.interceptors.response.use(
 	response => {
-		// store.dispatch(decreaseRequestCount());
+		 store.dispatch(decreaseRequestCount());
 		return response;
 	},
 	error => {
-		// store.dispatch(decreaseRequestCount());
+		 store.dispatch(decreaseRequestCount());
 	},
 );
 
