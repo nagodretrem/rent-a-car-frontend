@@ -75,7 +75,12 @@ const Navbar = (props: Props) => {
            
             {loggedIn ? (
               <>
-              <Link to={"/updateprofile"}>
+              <Link to={"/orderpage"}>
+              <button type="button" className="btn" >
+               Siparişlerim
+             </button>
+             </Link>
+             <Link to={"/updateprofile"}>
                <button type="button" className="btn" >
                Profil
              </button>

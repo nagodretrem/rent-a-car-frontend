@@ -47,6 +47,8 @@ const RentalConfirm = (props: Props) => {
     dispatch(getByStringCode(discountCode)).then((action) => {
       if (getByStringCode.fulfilled.match(action)) {
         setDiscountValue(action.payload.value);
+      } else if (getByStringCode.rejected.match(action)) {
+        alert("Geçersiz indirim kodu");
       }
     });
   };

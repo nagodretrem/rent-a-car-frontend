@@ -42,6 +42,18 @@ export const addInvoice = createAsyncThunk(
     }
   );
 
+  export const getByOwnerUser = createAsyncThunk(
+    "invoices/getByOwnerUser",
+    async (ownerUser: number, thunkAPI) => {
+      try {
+        const response = await invoiceService.getByOwnerUser(ownerUser);
+        return response;
+      } catch (error) {
+        console.error("getByOwnerUser error", error);
+        throw error;
+      }
+    }
+  );
 const InvoiceSlice= createSlice({
     name:"invoice",
     initialState:{
@@ -89,6 +101,16 @@ const InvoiceSlice= createSlice({
           builder.addCase(getById.rejected, (state) => {
             state.loading = "error";
           });
+          builder.addCase(getByOwnerUser.pending, (state) => {
+            state.loading = "loading";
+        });
+        builder.addCase(getByOwnerUser.fulfilled, (state, action) => {
+            state.loading = "loaded";
+            state.invoices = action.payload;
+        });
+        builder.addCase(getByOwnerUser.rejected, (state) => {
+            state.loading = "error";
+        });
 
        
     }

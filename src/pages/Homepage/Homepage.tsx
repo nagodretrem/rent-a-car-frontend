@@ -5,24 +5,7 @@ import { Link } from "react-router-dom";
 type Props = {};
 
 const Homepage = (props: Props) => {
-  const [backgroundImage, setBackgroundImage] = useState<string>("/public/assets/CarHomepage/bg.jpg");
-  const backgrounds = [
-    "/public/assets/CarHomepage/bg.jpg",
-    "/public/assets/CarHomepage/bg-light.jpg",
-    
-  ];
-  let index = 0;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      index = (index + 1) % backgrounds.length;
-      setBackgroundImage(backgrounds[index]);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-   
+ 
   return (
 
 <div className="hero">
